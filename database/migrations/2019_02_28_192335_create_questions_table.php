@@ -17,11 +17,13 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('exam_id')->unsigned();
             $table->string('text');
-            $table->boolean('is_correct');
+            $table->boolean('is_correct')->nullable();
             $table->string('correct_answer');
-            $table->string('type');
-            $table->json('choices');
+            $table->string('type',10);
+            $table->json('choices')->nullable();
+            $table->softDeletes();
             $table->timestamps();
+            $table->foreign('exam_id')->references('id')->on('exam');
         });
     }
 

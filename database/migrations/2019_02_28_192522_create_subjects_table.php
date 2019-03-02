@@ -16,9 +16,10 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
             $table->string("name");
-            $table->integer("class_id")->unsigned();
-            $table->integer("teacher_id")->unsigned();
-            $table->decimal("rate");
+            $table->integer("classroom_id")->unsigned()->nullable();
+            $table->integer("teacher_id")->unsigned()->nullable();
+            $table->float("rate")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
