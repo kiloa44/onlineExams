@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('exam_id')->unsigned();
             $table->string('text');
             $table->boolean('is_correct')->nullable();
-            $table->string('correct_answer');
+            $table->string('correct_answer')->nullable();
             $table->string('type',10);
             $table->json('choices')->nullable();
             $table->softDeletes();

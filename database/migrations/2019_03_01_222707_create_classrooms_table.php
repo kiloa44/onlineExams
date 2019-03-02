@@ -15,6 +15,7 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name',191)->nullable();
             $table->string("description")->nullable();
             $table->integer("teacher_id")->unsigned()->nullable();
             $table->softDeletes();
