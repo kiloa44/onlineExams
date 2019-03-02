@@ -23,7 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->json('choices')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('exam_id')->references('id')->on('exam');
+            $table->foreign('exam_id')->references('id')->on('exams');
         });
     }
 
