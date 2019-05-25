@@ -12,7 +12,7 @@ class Student extends Model
    public function user(){
        return $this->hasOne('App/User','id','user_id');
    }
-   public function classroon(){
+   public function classroom(){
        return $this->hasOne('App/Classroom','id','classroom_id');
    }
 
