@@ -8,14 +8,21 @@ use Psy\Util\Json;
 
 class Question extends Model
 {
-    protected $fillable=['text','type'];
+    protected $fillable = ['exam_id','text','is_correct','correct_answer','type','choices'];
 
-    public function exam(){
-        return $this->hasOne('App/exam','id','exam_id');
-    }
     public function storeChoices($choices){
         $this->choices=Json::encode($choices);
     }
+
+
+
+
+     public function exam_question()
+        {
+            return $this->hasMany('App\ExamQuestion');
+        }
+
+
 
     use SoftDeletes;
     protected $dates=['deleted_at'];

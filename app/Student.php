@@ -12,11 +12,13 @@ class Student extends Model
    public function user(){
        return $this->hasOne('App/User','id','user_id');
    }
-   public function classroom(){
-       return $this->hasOne('App/Classroom','id','classroom_id');
+   public function class_student()
+   {
+       return $this->hasMany('App\ClassStudent');
    }
 
 
-   use SoftDeletes;
+
+    use SoftDeletes;
    protected $dates=['deleted_at'];
 }

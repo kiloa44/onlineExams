@@ -8,14 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Exam extends Model
 {
-    protected $fillable=['subject_id','name','description'];
-    public function questions(){
-        return $this->hasMany('App/Question','exam_id','id');
-    }
+
+    protected $fillable = ['subject_id','name','description','begin_at','end_at','mark'];
     public function subject(){
         return $this->hasOne('App/Subject','id','subject_id');
     }
 
+        public function exam_question()
+        {
+            return $this->hasMany('App\ExamQuestion');
+        }
 
     use SoftDeletes;
     protected $dates=['deleted_at'];
@@ -24,7 +26,7 @@ class Exam extends Model
     {
         parent::boot();
         static::deleting(function ($exam){
-            $exam->questions->map(function ($question){
+            $exam->exam_question->map(function ($question){
                 $question->delete();
             });
         });

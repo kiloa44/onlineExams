@@ -17,7 +17,7 @@ class CreateExamsTable extends Migration
             $table->increments('id');
             $table->integer('subject_id')->unsigned();
             $table->string('name',191);
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->dateTime('begin_at')->nullable();
             $table->dateTime('end_at')->nullable();
             $table->float('mark')->unsigned()->nullable();

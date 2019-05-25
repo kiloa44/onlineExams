@@ -9,17 +9,25 @@ class Subject extends Model
 {
     protected $fillable=['name','description','classroom_id','teacher_id'];
 
-   public function exams(){
-       $this->hasMany('App/Exam','exam_id','id');
+   public function exams()
+   {
+       $this->hasMany('App/Exam', 'subject_id', 'id');
    }
-    public function classroom(){
-        $this->hasOne('App/Classroom','id','classroom_id');
-    }
-    public function calcolateRate(){
+   public function calcolateRate(){
 
        $this->rate= $this->exams->avg('mark');
        return $this->rate;
+   }
+
+    public function class_subject()
+    {
+        return $this->hasMany('App\ClassSubject');
     }
+    public function teacher_subject()
+    {
+        return $this->hasMany('App\TeacherSubject');
+    }
+
 
 
     use SoftDeletes;
