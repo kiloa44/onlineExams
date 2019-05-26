@@ -10,10 +10,10 @@ class Teacher extends Model
     protected $fillable=['user_id','subject_id'];
 
     public function user(){
-        return $this->hasOne('App/User','id','user_id');
+        return $this->hasOne('App\User','id','user_id');
     }
     public function classroom(){
-        return $this->hasOne('App/Classroom','teacher_id','id');
+        return $this->hasOne('App\Classroom','teacher_id','id');
     }
     public function teacher_subject()
     {

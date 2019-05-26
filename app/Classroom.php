@@ -19,7 +19,7 @@ class Classroom extends Model
         return $this->hasMany('App\ClassSubject');
     }
     public function headTeacher(){
-        $this->hasOne('App/Teacher','id','teacher_id');
+        $this->hasOne('App\Teacher','id','teacher_id');
     }
     use SoftDeletes;
     protected $dates=['deleted_at'];

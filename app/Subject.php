@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subject extends Model
 {
-    protected $fillable=['name','description','classroom_id','teacher_id'];
+    protected $fillable=['name','description'];
 
    public function exams()
    {
-       $this->hasMany('App/Exam', 'subject_id', 'id');
+       $this->hasMany('App\Exam', 'subject_id', 'id');
    }
    public function calcolateRate(){
 

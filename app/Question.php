@@ -8,14 +8,11 @@ use Psy\Util\Json;
 
 class Question extends Model
 {
-    protected $fillable = ['exam_id','text','is_correct','correct_answer','type','choices'];
+    protected $fillable = ['text','is_correct','correct_answer','type','choices'];
 
     public function storeChoices($choices){
         $this->choices=Json::encode($choices);
     }
-
-
-
 
      public function exam_question()
         {

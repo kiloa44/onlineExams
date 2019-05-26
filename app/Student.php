@@ -10,7 +10,7 @@ class Student extends Model
    protected $fillable=['user_id','classroom_id'];
 
    public function user(){
-       return $this->hasOne('App/User','id','user_id');
+       return $this->hasOne('App\User','id','user_id');
    }
    public function class_student()
    {
