@@ -14,9 +14,9 @@ class StudentResources extends Resource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
-        $result = new UserResources($this->user);
-        //array_add();
-        return $result;
+        return [ "username"=>$this->user->username,
+            "name"=>$this->user->name,
+            'classrooms'=>$this->class_student->classroom
+        ];
     }
 }

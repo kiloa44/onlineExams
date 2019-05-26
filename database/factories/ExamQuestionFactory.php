@@ -7,6 +7,7 @@ $factory->define(App\ExamQuestion::class, function (Faker $faker) {
     $exam =  \App\Exam::inRandomOrder()->first();
     return [
         "question_id"=>$question->id,
-        "exam_id"=>$exam->id
+        "exam_id"=>$exam->id,
+
     ];
 });

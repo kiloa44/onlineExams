@@ -16,8 +16,14 @@ class CreateExamQuestionsTable extends Migration
         Schema::create('exam_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer("question_id")->unsigned();
+            $table->integer("student_id")->unsigned()->nullable();
             $table->integer("exam_id")->unsigned();
+
+            $table->float("question_mark")->unsigned();
+            $table->float("deserved_mark")->unsigned()->nullable();
+
             $table->foreign('question_id')->references('id')->on('questions');
+            //$table->foreign('student_id')->references('id')->on('students');
             $table->foreign('exam_id')->references('id')->on('exams');
             $table->timestamps();
         });

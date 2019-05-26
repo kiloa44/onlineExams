@@ -20,7 +20,7 @@ class CreateSubjectsTable extends Migration
 
 //            $table->integer("classroom_id")->unsigned()->nullable();
 //            $table->integer("teacher_id")->unsigned()->nullable();
-            $table->float("rate")->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

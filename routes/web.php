@@ -18,44 +18,18 @@ use App\Exam;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-//
-Route::get("/userResources",function (){
-    return \App\Http\Resources\UserResources::collection(User::all());
-});
-Route::get("/studentResources",function (){
-    return \App\Http\Resources\StudentResources::collection(Student::all());
-});
-Route::get("/teacherResources",function (){
-    return \App\Http\Resources\TeacherResources::collection(Teacher::all());
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name("home");
 });
 
-Route::get("/classStudentResources",function (){
-    return \App\Http\Resources\ClassStudentsResources::collection(\App\ClassStudent::all());
-});
-Route::get("/classroomResources",function (){
-    return \App\Http\Resources\ClassroomResources::collection(Classroom::all());
-});
-Route::get("/classSubjectResources",function (){
-    return \App\Http\Resources\ClassSubjectResources::collection(\App\ClassSubject::all());
-});
-Route::get("/subjectResources",function (){
-    return \App\Http\Resources\SubjectResources::collection(\App\Subject::all());
-});
-Route::get("/examResources",function (){
-    return \App\Http\Resources\ExamResources::collection(\App\Exam::all());
-});
-Route::get("/questionResources",function (){
-    return \App\Http\Resources\QuestionResources::collection(\App\Question::all());
-});
-Route::get("/examQuestionResources",function (){
-    return \App\Http\Resources\ExamQuestionResources::collection(\App\ExamQuestion::all());
-});
-Route::get("/teacherSubjectResources",function (){
-    return \App\Http\Resources\TeacherSubjectResources::collection(\App\TeacherSubject::all());
-});
 
 //
 //Route::get("/long/url/to/test/stuff",array("as"=>"what.I.want",function(){
@@ -95,5 +69,4 @@ Route::get("/create",function (){
 
 
 
-Auth::routes();
 //Route::resource("/question",'QuestionController@store');

@@ -8,7 +8,7 @@ use Psy\Util\Json;
 
 class Question extends Model
 {
-    protected $fillable = ['text','is_correct','correct_answer','type','choices'];
+    protected $fillable = ['text','is_correct','correct_answer','type','choices','class_subject_id'];
 
     public function storeChoices($choices){
         $this->choices=Json::encode($choices);
@@ -23,4 +23,6 @@ class Question extends Model
 
     use SoftDeletes;
     protected $dates=['deleted_at'];
+
+
 }

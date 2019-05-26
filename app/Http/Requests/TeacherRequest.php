@@ -4,25 +4,20 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends BaseRequest
+class TeacherRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
 
     /**
      * Get the validation rules that apply to the request.
-     *. ($this->id ? ",id,$this->user->id" : ''),
+     *
      * @return array
      */
     public function rules()
     {
         return [
             "name"=>'required',
-            "username"=>'required|unique:users,id',
-            "email"=>"required|unique:users,id",
+            "username"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
+            "email"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
             "password"=>'sometimes',
 
         ];

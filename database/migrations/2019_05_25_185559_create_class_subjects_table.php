@@ -17,6 +17,11 @@ class CreateClassSubjectsTable extends Migration
             $table->increments('id');
             $table->integer("subject_id")->unsigned();
             $table->integer("classroom_id")->unsigned();
+
+            $table->float("rate")->nullable();
+            $table->integer("student_id")->unsigned()->nullable();
+
+
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->timestamps();

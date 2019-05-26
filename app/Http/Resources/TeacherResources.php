@@ -15,8 +15,10 @@ class TeacherResources extends Resource
     public function toArray($request)
     {
         //return parent::toArray($request);
-        $result = new UserResources($this->user);
-        array_add($result,"subjects",TeacherSubjectResources::collection($this->teacher_subject));
-        return $result;
+
+        return [ "username"=>$this->user->username,
+            "name"=>$this->user->name,
+
+            ];
     }
 }

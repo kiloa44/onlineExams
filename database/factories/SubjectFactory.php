@@ -6,6 +6,6 @@ $factory->define(App\Subject::class, function (Faker $faker) {
     return [
         "name"=>$faker->name,
         "description"=>$faker->text,
-        "rate"=>rand(0,10)
+
     ];
 });

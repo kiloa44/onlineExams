@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamQuestion extends Model
 {
-    protected $fillable = ['question_id','exam_id'];
+    protected $fillable = ['question_id','exam_id',"question_mark"];
 
 
     public function question()
@@ -17,5 +17,6 @@ class ExamQuestion extends Model
     {
         return $this->belongsTo('App\Exam');
     }
+
 
 }

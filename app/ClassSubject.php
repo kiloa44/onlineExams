@@ -16,5 +16,11 @@ class ClassSubject extends Model
     {
         return $this->belongsTo('App\Classroom');
     }
+    public function questions(){
+        return $this->hasMany('App\Question','class_subject_id','id');
+    }
+    public function exams(){
+        return $this->hasMany('App\Exam','class_subject_id','id');
+    }
 
 }

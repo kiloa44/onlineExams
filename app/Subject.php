@@ -13,11 +13,11 @@ class Subject extends Model
    {
        $this->hasMany('App\Exam', 'subject_id', 'id');
    }
-   public function calcolateRate(){
-
-       $this->rate= $this->exams->avg('mark');
-       return $this->rate;
-   }
+//   public function calcolateRate(){
+//
+//       $this->rate= $this->exams->avg('mark');
+//       return $this->rate;
+//   }
 
     public function class_subject()
     {
