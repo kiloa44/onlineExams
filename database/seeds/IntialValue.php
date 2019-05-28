@@ -11,8 +11,8 @@ class IntialValue extends Seeder
      */
     public function run()
     {
-//        factory(\App\Student::class,5)->create();
-//        factory(\App\Classroom::class,5)->create();
+        factory(\App\Student::class,5)->create();
+        factory(\App\Classroom::class,5)->create();
 //        factory(\App\Teacher::class,5)->create();
 //        factory(\App\Subject::class,5)->create();
 //        factory(\App\Question::class,10)->create();

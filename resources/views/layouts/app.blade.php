@@ -78,7 +78,8 @@
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                 <span class="avatar avatar-online">
                   <img src="{{ asset('app-assets/images/portrait/small/avatar-s-1.png') }}" alt="avatar"><i></i></span>
-                            <span class="user-name">{{ Auth::User()->name }}</span>
+                            {{--<span class="user-name">{{ Auth::User()->name }}</span>--}}
+                            <span class="user-name">Whatsoever</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> الملف الشخصي</a>
                             <div class="dropdown-divider"></div>
@@ -121,9 +122,9 @@
                 <ul class="menu-content">
                     <li><a class="menu-item" href="#">الاسئلة</a>
                     </li>
-                    <li><a class="menu-item" href="">الاختبارات</a>
+                    <li><a class="menu-item" href="#">الاختبارات</a>
                     </li>
-                    <li><a class="menu-item" href="">الشهادات</a>
+                    <li><a class="menu-item" href="#">الشهادات</a>
                     </li>
                 </ul>
             </li>

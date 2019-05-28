@@ -22,6 +22,25 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/groups',function (){
+    return view('groups');
+});
+Route::get('/students',function (){
+    return view('students');
+});
+
+Route::get('/users',function (){
+    return view('users');
+});
+
+Route::get('/teachers',function (){
+    return view('teachers');
+});
+
+Route::get('/roles',function (){
+    return view('roles');
+});
+
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -29,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', function () {
         return view('index');
     })->name("home");
+
+
 });
 
 
