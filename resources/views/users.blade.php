@@ -29,6 +29,10 @@
                                             data-target="#newUser">
                                         <i class="ft-plus"></i>مستخدم جديد
                                     </button>
+                                    <button type="button" class="btn btn-warning mr-1" data-toggle="modal"
+                                            data-target="#editUser">
+                                        <i class="ft-plus"></i>تعديل مستخدم
+                                    </button>
                                 </div>
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="ft-user"></i>بيانات المستخدمين</h4>
@@ -40,12 +44,12 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>اسم المستخدم</th>
-                                                        <th> المنطقة</th>
-                                                        <th> المنطقة المحلية</th>
+                                                        <th>مكان السكن</th>
+{{--                                                        <th> المنطقة المحلية</th>--}}
                                                         <th>رقم الهوية</th>
                                                         <th>البريد الالكتروني</th>
                                                         <th>رقم الجوال</th>
-                                                        <th>المسمى الوظيفي</th>
+{{--                                                        <th>المسمى الوظيفي</th>--}}
                                                         <th>خيارات</th>
                                                     </tr>
                                                     </thead>
@@ -127,10 +131,10 @@
 
                                  <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="area_id">منطة السكن</label>
+                                            <label for="area_id">مكان السكن</label>
                                             <div class="position-relative has-icon-left">
                                                 <select id="area_id" class="form-control" name="area_id" onchange="getAreaByParentID(this)">
-                                                    <option value="1">-- اختر المنطقة --</option>
+                                                    <option value="1">-- اختر مكان السكن --</option>
 {{--                                                    @foreach($MajorAreas as $MajorArea)--}}
 {{--                                                        <option value="{{ $MajorArea['id'] }}">{{ $MajorArea['name'] }}</option>--}}
 {{--                                                    @endforeach--}}
@@ -228,10 +232,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="area_id">منطقة السكن</label>
+                                        <label for="area_id">مكان السكن</label>
                                         <div class="position-relative has-icon-left">
                                             <select id="area_id" class="form-control" name="area_id" onchange="getAreaByParentID(this)">
-                                                <option value="1">-- اختر المنطقة --</option>
+                                                <option value="1">-- اختر مكان السكن --</option>
 {{--                                                @foreach($MajorAreas as $MajorArea)--}}
 {{--                                                    <option value="{{ $MajorArea['id'] }}">{{ $MajorArea['name'] }}</option>--}}
 {{--                                                @endforeach--}}
@@ -249,7 +253,7 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
-                            </div>
+
 {{--                            <div class="row">--}}
 {{--                                <div class="col-md-4">--}}
 {{--                                   <div class="form-group">--}}
@@ -257,19 +261,20 @@
 {{--                                        <input type="password" id="password" class="form-control" placeholder="كلمة المرور" name="password">--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
-{{--                                <div class="col-md-4">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="roleName">الدور</label>--}}
-{{--                                        <div class="position-relative has-icon-left">--}}
-{{--                                            <select id="roleName" class="form-control select2" name="roleName">--}}
-{{--                                                <option value="null">-- اختر الدور --</option>--}}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="roleName">الدور</label>
+                                        <div class="position-relative has-icon-left">
+                                            <select id="roleName" class="form-control select2" name="roleName">
+                                                <option value="null">-- اختر الدور --</option>
 {{--                                                @foreach($roles as $index => $role)--}}
 {{--                                                    <option value="{{ $role->id }}">{{ $role->description }}</option>--}}
 {{--                                                @endforeach--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 {{--                            </div>--}}
                         </div>
                     </div>

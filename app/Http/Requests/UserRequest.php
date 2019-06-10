@@ -24,6 +24,9 @@ class UserRequest extends BaseRequest
             "username"=>'required|unique:users,id',
             "email"=>"required|unique:users,id",
             "password"=>'sometimes',
+            "phone_number"=>'numeric|required|unique:users,phone_number',
+            "identity_number"=>'numeric|required|unique:users,identity_number',
+            "dob"=>'numeric|sometimes'
 
         ];
     }

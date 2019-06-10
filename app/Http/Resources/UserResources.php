@@ -22,6 +22,9 @@ class UserResources extends Resource
             "username"=>$this->username,
             "name"=>$this->name,
             "email"=>$this->email,
+            "phone_number"=>$this->phone_number,
+            "identity_number"=>$this->identity_number,
+            "birthday"=>$this->dob,
             "type"=>$data,
             $data=>$content
         ];

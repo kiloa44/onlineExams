@@ -25,9 +25,13 @@ Route::get('/', function () {
 Route::get('/groups',function (){
     return view('groups');
 });
-Route::get('/students',function (){
-    return view('students');
-});
+
+
+//Student
+Route::resource('students','StudentController');
+
+
+
 
 Route::get('/users',function (){
     return view('users');
@@ -40,6 +44,41 @@ Route::get('/teachers',function (){
 Route::get('/roles',function (){
     return view('roles');
 });
+
+Route::get('/generalshow',function(){
+    return view("generalShow");
+});
+
+Route::get('/minutesofmeeting',function(){
+    return view("minutes_meeting");
+});
+
+Route::get('/marks',function(){
+    return view("marks");
+});
+Route::get('/questions',function(){
+    return view("questions");
+});
+
+Route::get('/exams',function(){
+    return view("exams");
+});
+
+Route::get('/certifications',function(){
+    return view("certifications");
+});
+
+Route::get('/reports',function(){
+    return view("reports");
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\ClassStudent;
+use App\Http\Resources\UserResources;
 use App\Student;
+use App\User;
+use App\Http\Resources\StudentResources;
 use Illuminate\Http\Request;
+use Illuminate\Http\Validator;
+
 
 class StudentController extends Controller
 {
@@ -14,7 +20,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $users = UserResources::collection(User::all());
+        $students=StudentResources::collection(Student::all());
+
+
+
+        return view('students')
+            ->with(compact('students'))
+            ->with(compact('users'));
     }
 
     /**
@@ -35,8 +48,32 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validated();
+
+        $user = User::create([
+            "name"=>$request->data->name,
+            "password"=>$request->data->guardian_mobile_number,
+            "identity_number"=>$request->data->identity_number,
+            "notes"=>$request->data->notes,
+            "dob"=>$request->data->dob,
+        ]);
+        $student = Student::create([
+            "user_id"=>$user->id,
+            "guardian_data"=>json_encode(
+                array(
+                    "guardian_identity_number"=>$request->data->guardian_identity_number,
+                    "guardian_mobile_number"=>$request->data->guardian_mobile_number,
+                    "guardian_name"=>$request->data->guardian_name,
+                )
+            ),
+        ]);
+        ClassStudent::create([
+            'student_id'=>$student->id,
+            'classroom_id'=>$request->data->classroom
+        ]);
+        return $this->sendResponse("","تمت عملية الاضافة بنجاح");
     }
+
 
     /**
      * Display the specified resource.
