@@ -14,9 +14,13 @@ class StudentRequest extends BaseRequest
     {
         return [
             "name"=>'required',
-            "username"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
-            "email"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
+            //"username"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
+            //"email"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
             "password"=>'sometimes',
+            "identity_number"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
+            "notes"=>'required',
+            "dob"=>'required',
+            "guardian_data"=>'required'
 
         ];
     }
