@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Classroom;
 use App\ClassStudent;
 use App\Http\Requests\StudentRequest;
+use App\Http\Resources\ClassroomResources;
 use App\Http\Resources\UserResources;
 use App\Student;
 use App\User;
@@ -24,12 +26,13 @@ class StudentController extends Controller
     {
 //        $users = UserResources::collection(User::all());
 
-        $students=StudentResources::collection(Student::all());
-
+        $students=Student::all();
+       $classrooms=Classroom::all();
 
 
         return view('students')
-            ->with(compact('students'));
+            ->with(compact('students'))
+            ->with(compact('classrooms'));
     }
 
     /**
@@ -58,7 +61,7 @@ class StudentController extends Controller
             "username"=>$request->name.$request->identity_number,
             "email"=>'t'.$request->identity_number.'@gg.com',
             "identity_number"=>$request->identity_number,
-            "phone_number"=>$request->guardian_mobile_number,
+           // "phone_number"=>$request->guardian_mobile_number,
             "notes"=>$request->notes,
             "dob"=>$request->dob,
         ]);
