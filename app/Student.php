@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
-   protected $fillable=['user_id'];
+   protected $fillable=['user_id','guardian_data'];
 
    public function user(){
        return $this->hasOne('App\User','id','user_id');

@@ -20,7 +20,7 @@ class StudentRequest extends BaseRequest
             "identity_number"=>'required|unique:users'.($this->id ? ",id,$this->user->id" : ''),
             "notes"=>'required',
             "dob"=>'required',
-            "guardian_data"=>'required'
+            "guardian_data"=>'sometimes'
 
         ];
     }
