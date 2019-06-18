@@ -16,14 +16,14 @@ class ConnectRelationshipsSeeder extends Seeder
         /**
          * Get Available Permissions.
          */
-        $permissions = config('roles.models.permission')::all();
-
-        /**
-         * Attach Permissions to Roles.
-         */
-        $roleAdmin = config('roles.models.role')::where('name', '=', 'Admin')->first();
-        foreach ($permissions as $permission) {
-            $roleAdmin->attachPermission($permission);
-        }
+//        $permissions = config('roles.models.permission')::all();
+//
+//        /**
+//         * Attach Permissions to Roles.
+//         */
+//        $roleAdmin = config('roles.models.role')::where('name', '=', 'Admin')->first();
+//        foreach ($permissions as $permission) {
+//            $roleAdmin->attachPermission($permission);
+//        }
     }
 }

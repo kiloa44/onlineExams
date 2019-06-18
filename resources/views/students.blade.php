@@ -282,25 +282,25 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="mobile_number">رقم الجوال</label>
-                                        <input type="text" id="mobile_number" class="form-control" placeholder="رقم الجوال" name="mobile_number">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="qualification_id">المؤهل العلمي</label>
-                                        <div class="position-relative has-icon-left">
-                                            <select id="qualification_id" class="form-control select2" name="qualification_id">
-                                                <option value="null">-- اخنر المؤهل العلمي --</option>
-                                                {{--                                                    @foreach($qualifications as $index => $qualification)--}}
-                                                {{--                                                        <option value="{{ $qualification->id }}">{{ $qualification->name }}</option>--}}
-                                                {{--                                                    @endforeach--}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="mobile_number">رقم الجوال</label>--}}
+{{--                                        <input type="text" id="mobile_number" class="form-control" placeholder="رقم الجوال" name="mobile_number">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="qualification_id">المؤهل العلمي</label>--}}
+{{--                                        <div class="position-relative has-icon-left">--}}
+{{--                                            <select id="qualification_id" class="form-control select2" name="qualification_id">--}}
+{{--                                                <option value="null">-- اخنر المؤهل العلمي --</option>--}}
+{{--                                                --}}{{--                                                    @foreach($qualifications as $index => $qualification)--}}
+{{--                                                --}}{{--                                                        <option value="{{ $qualification->id }}">{{ $qualification->name }}</option>--}}
+{{--                                                --}}{{--                                                    @endforeach--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 {{--                                <div class="col-md-4">--}}
 {{--                                    <div class="form-group">--}}
 {{--                                        <label for="qualification_auto_update">تحديث المؤهل آليا</label><br>--}}
@@ -318,8 +318,6 @@
                                         <input type="text" id="guardian_name" class="form-control" placeholder="اسم ولي الامر" name="guardian_name">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="guardian_identity_number">رقم هوية ولي الامر</label>
@@ -332,9 +330,16 @@
                                         <input type="text" id="guardian_mobile_number" class="form-control" placeholder="رقم جوال ولي الامر" name="guardian_mobile_number">
                                     </div>
                                 </div>
-
                             </div>
+
+
                             <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="classroom">الصف</label>
+                                        <input type="text" id="classroom" class="form-control" placeholder="الصف" name="classroom">
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="area_id">مكان السكن</label>
@@ -396,6 +401,7 @@
                                         </label>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -666,7 +672,7 @@
                 $("#editStudent #form-editStudent #name").val(response.data.data.name);
                 $('#editStudent #form-editStudent #identity_number').val(response.data.data.identity_number).trigger('change');
                 $("#editStudent #form-editStudent #dob").val(dateReformatting(response.data.data.dob));
-                $("#editStudent #form-editStudent #mobile_number").val(response.data.data.mobile_number);
+                //$("#editStudent #form-editStudent #mobile_number").val(response.data.data.mobile_number);
                 //$('#editStudent #form-editStudent #qualification_id').val(response.data.data.qualification.id).trigger('change');
                 //if(response.data.data.updated_automatically_qualified===1) $("#editGroup #form-editStudent #updated_automatically_qualified").iCheck('check');
                 $("#editStudent #form-editStudent #guardian_name").val(response.data.data.guardian_name);
@@ -674,7 +680,7 @@
                 $("#editStudent #form-editStudent #guardian_mobile_number").val(response.data.data.guardian_mobile_number);
                 $("#editStudent #form-editStudent #classroom").val(response.data.data.classroom);
                 //$('#editStudent #form-editStudent #major_area_id').val(response.data.data.mosque.major_area_id).trigger('change');
-                ////$('#editStudent #form-editStudent #area_id').val(response.data.data.mosque.local_area_id);
+                ////$('#editStudent #form-editStudent #area_id').val(response.data.data.area_id);
                 //getMosqueByLocalAreaID2(response.data.data.mosque.local_area_id);
                 //$('#editStudent #form-editStudent #mosque_id').val(response.data.data.mosque.id).trigger('change');
                 // $('#editStudent #form-editStudent #group_id').val(response.data.data.group_id).trigger('change');
@@ -728,7 +734,6 @@
                 return 0;
             var mydate = date.split(" ");
             var newDate = mydate.pop();
-            newDate = mydate.pop();
             return newDate;
         }
 

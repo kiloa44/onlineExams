@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classroom;
 use App\ClassStudent;
+use App\Guardian;
 use App\Http\Requests\StudentRequest;
 use App\Http\Resources\ClassroomResources;
 use App\Http\Resources\UserResources;
@@ -65,15 +66,21 @@ class StudentController extends Controller
             "notes"=>$request->notes,
             "dob"=>$request->dob,
         ]);
+        $guardian = Guardian::create([
+            "name"=>$request->guardian_name,
+            "identity_number"=>$request->guardian_identity_number,
+            "phone_number"=>$request->guardian_mobile_number,
+        ]);
         $student = Student::create([
             "user_id"=>$user->id,
-            "guardian_data"=>json_encode(
-                array(
-                    "guardian_identity_number"=>$request->guardian_identity_number,
-                    "guardian_mobile_number"=>$request->guardian_mobile_number,
-                    "guardian_name"=>$request->guardian_name,
-                )
-            ),
+            "guardian"=>$guardian->id,
+//            "guardian_data"=>json_encode(
+//                array(
+//                    "guardian_identity_number"=>$request->guardian_identity_number,
+//                    "guardian_mobile_number"=>$request->guardian_mobile_number,
+//                    "guardian_name"=>$request->guardian_name,
+//                )
+//            ),
         ]);
         ClassStudent::create([
             'student_id'=>$student->id,
@@ -91,9 +98,9 @@ class StudentController extends Controller
     public function show($identity_number)
     {
         try {
-            $user = User::where('identity_number',$identity_number)->first();
-            return new StudentResources(Student::where('user_id',$user->id)->first());
-//
+            $user = User::where('identity_number',$identity_number)->get()->first();
+            return new StudentResources(Student::where('user_id',$user->id)->get()->first());
+
 //            return view('students')
 //                ->with(compact('student'));
         }catch( ModelNotFoundException $e){

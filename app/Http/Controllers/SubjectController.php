@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubjectRequest;
 use App\Subject;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+        return $subjects;
     }
 
     /**
@@ -33,9 +35,11 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubjectRequest $request)
     {
-        //
+        $request->validated();
+        Subject::create($request->all());
+        return $this->sendResponse("","تمت عملية الاضافة بنجاح");
     }
 
     /**

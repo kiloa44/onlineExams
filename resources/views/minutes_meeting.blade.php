@@ -103,9 +103,9 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="day_id">اليوم</label>
+                                        <label for="day">اليوم</label>
                                         <div class="position-relative has-icon-left">
-                                            <select id="day_id" class="form-control" name="day_id">
+                                            <select id="day" class="form-control" name="day">
                                                 <option value="null">-- اختر اليوم --</option>
 {{--                                                @foreach($days as $day)--}}
 {{--                                                    <option value="{{ $day->id }}">{{ $day->name }}</option>--}}
@@ -129,7 +129,7 @@
                                     <div class="form-group">
                                         <label for="start_time">وقت البداية</label>
                                         <div class="position-relative has-icon-left">
-                                            <input type="time" id="start_time" class="form-control" name="start_time">
+                                            <input type="time" id="starting" class="form-control" name="starting">
                                             <div class="form-control-position">
                                                 <i class="ft-clock"></i>
                                             </div>
@@ -140,7 +140,7 @@
                                     <div class="form-group">
                                         <label for="end_time">وقت الانتهاء</label>
                                         <div class="position-relative has-icon-left">
-                                            <input type="time" id="end_time" class="form-control" name="end_time">
+                                            <input type="time" id="ending" class="form-control" name="ending">
                                             <div class="form-control-position">
                                                 <i class="ft-clock"></i>
                                             </div>
@@ -173,7 +173,7 @@
                             <div class="form-group mb-2 contact-repeater">
                                 <div data-repeater-list="repeater-group">
                                     <div class="input-group mb-1" data-repeater-item>
-                                        <input type="text" placeholder="اسم الغياب" class="form-control" id="absence" name="absence">
+                                        <input type="text" placeholder="اسم الغياب" class="form-control" id="absentees" name="absentees">
                                         <div class="input-group-append">
                                           <span class="input-group-btn ml-1" id="button-addon2">
                                             <button class="btn btn-danger" type="button" data-repeater-delete><i class="ft-x"></i></button>
@@ -186,9 +186,9 @@
                                 </button>
                             </div>
                             <div class="form-group">
-                                <label for="record">المحضر</label>
+                                <label for="content">المحضر</label>
                                 <div class="position-relative has-icon-left">
-                                    <textarea id="record" rows="10" class="form-control" name="record" placeholder="المحضر"></textarea>
+                                    <textarea id="content" rows="10" class="form-control" name="content" placeholder="المحضر"></textarea>
                                     <div class="form-control-position">
                                         <i class="ft-file"></i>
                                     </div>

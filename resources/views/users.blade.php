@@ -29,10 +29,6 @@
                                             data-target="#newUser">
                                         <i class="ft-plus"></i>مستخدم جديد
                                     </button>
-                                    <button type="button" class="btn btn-warning mr-1" data-toggle="modal"
-                                            data-target="#editUser">
-                                        <i class="ft-plus"></i>تعديل مستخدم
-                                    </button>
                                 </div>
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="ft-user"></i>بيانات المستخدمين</h4>
@@ -54,24 +50,25 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-{{--                                                    @foreach($users as $index => $user)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                        <td>{{ $user->name }}</td>--}}
+                                                    @foreach($users as $index => $user)
+                                                    <tr>
+                                                        <th scope="col">{{ $index+1 }}</th>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>blank</td>
 {{--                                                        <td>@if($user->localArea){{ $user->localArea->parentArea->name }}@endif</td>--}}
 {{--                                                        <td>@if($user->localArea){{ $user->localArea->name }}@endif</td>--}}
-{{--                                                        <td>{{ $user->identity_number }}</td>--}}
-{{--                                                        <td>{{ $user->email }}</td>--}}
-{{--                                                        <td>{{ $user->mobile_number }}</td>--}}
+                                                        <td>{{ $user->identity_number }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->phone_number }}</td>
 {{--                                                        <td>{{ $user->getRoles()->first()['description']}}</td>--}}
-{{--                                                        <td>--}}
-{{--                                                            <div class="btn-group-sm" role="group" aria-label="First Group">--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-light" data-id="{{ $user->id }}" onclick="editUser(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-danger" data-id="{{ $user->id }}" id="confirm-text" onclick="deleteUser(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                            </div>--}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                    @endforeach--}}
+                                                        <td>
+                                                            <div class="btn-group-sm" role="group" aria-label="First Group">
+                                                                <button type="button" class="btn btn-icon btn-light" data-id="{{ $user->id }}" onclick="editUser(this)"><i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-icon btn-danger" data-id="{{ $user->id }}" id="confirm-text" onclick="deleteUser(this)" ><i class="fa fa-trash"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -296,8 +293,7 @@
             console.log(data);
             axios({
                 method:'post',
-                url:'localhost',
-                {{--url:'{{ route("addUser") }}',--}}
+                url:'{{ route("users.store") }}',
                 responseType:'json',
                 data:data
             }).then(function (response) {

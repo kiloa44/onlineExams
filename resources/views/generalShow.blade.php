@@ -75,18 +75,18 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-{{--                                                        @foreach($Days as $index =>$Day)--}}
-{{--                                                        <tr class="text-center s-1">--}}
-{{--                                                            <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                            <td>{{ $Day->name }}</td>--}}
-{{--                                                            <td>--}}
-{{--                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $Day->id }}" onclick="editDay(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $Day->id }}" id="confirm-text" onclick="deleteDay(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                                <!--</div>-->--}}
-{{--                                                            </td>--}}
-{{--                                                        </tr>--}}
-{{--                                                        @endforeach--}}
+                                                        @foreach($students as $index =>$student)
+                                                        <tr class="text-center s-1">
+                                                            <th scope="col">{{ $index+1 }}</th>
+                                                            <td>{{ $student->user->name }}</td>
+                                                            <td>
+                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->
+                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editDay(this)"><i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteDay(this)" ><i class="fa fa-trash"></i></button>
+                                                                <!--</div>-->
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -114,18 +114,18 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-{{--                                                        @foreach($Books as $index =>$Book)--}}
-{{--                                                        <tr class="text-center s-1">--}}
-{{--                                                            <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                            <td>{{ $Book->name }}</td>--}}
-{{--                                                            <td>--}}
-{{--                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $Book->id }}" onclick="editBook(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $Book->id }}" id="confirm-text" onclick="deleteBook(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                                <!--</div>-->--}}
-{{--                                                            </td>--}}
-{{--                                                        </tr>--}}
-{{--                                                        @endforeach--}}
+                                                        @foreach($subjects as $index =>$subject)
+                                                        <tr class="text-center s-1">
+                                                            <th scope="col">{{ $index+1 }}</th>
+                                                            <td>{{ $subject->name }}</td>
+                                                            <td>
+                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->
+                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $subject->id }}" onclick="editBook(this)"><i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $subject->id }}" id="confirm-text" onclick="deleteBook(this)" ><i class="fa fa-trash"></i></button>
+                                                                <!--</div>-->
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -153,18 +153,18 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-{{--                                                        @foreach($MajorAreas as $index => $MajorArea)--}}
-{{--                                                        <tr class="text-center s-1">--}}
-{{--                                                            <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                            <td>{{ $MajorArea->name }}</td>--}}
-{{--                                                            <td>--}}
-{{--                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $MajorArea->id }}" onclick="editMajorArea(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $MajorArea->id }}" id="confirm-text" onclick="deleteMajorArea(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                                <!--</div>-->--}}
-{{--                                                            </td>--}}
-{{--                                                        </tr>--}}
-{{--                                                        @endforeach--}}
+                                                        @foreach($classrooms as $index => $classroom)
+                                                        <tr class="text-center s-1">
+                                                            <th scope="col">{{ $index+1 }}</th>
+                                                            <td>{{ $classroom->name }}</td>
+                                                            <td>
+                                                                <!-- <div class="btn-group" role="group" aria-label="First Group">-->
+                                                                <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $classroom->id }}" onclick="editMajorArea(this)"><i class="fa fa-edit"></i></button>
+                                                                <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $classroom->id }}" id="confirm-text" onclick="deleteMajorArea(this)" ><i class="fa fa-trash"></i></button>
+                                                                <!--</div>-->
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -643,7 +643,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" name="addSubject" onclick="addNewBook()"><i class="fa fa-save"></i> إضافة</button>
+                        <button type="button" class="btn btn-primary" name="addSubject" onclick="addNewSubject()"><i class="fa fa-save"></i> إضافة</button>
                         <input type="reset" class="btn btn-secondary" data-dismiss="modal" value="إغلاق">
                     </div>
                 </form>
@@ -1385,75 +1385,32 @@
     <!-- End Modal editCertificatesOfJudgments-->
 
     <script>
+        function addNewStudent() {
 
-        function editDay(item){
-            var id=$(item).attr('data-id');
+            var data=getFormData($("#form-addNewStudent"));
+
+            console.log(data);
             axios({
-                method: 'get',
-                url:'localhost',
-                {{--url: '{{ route("showDay") }}'+'/'+id,--}}
+                method:'post',
+                // url:'localhost',
+                url:'{{ route("students.store") }}',
                 responseType:'json',
-                //params:form
+                data:data
             }).then(function (response) {
-                //handle success
-                $("#editDay").modal('show');
-                $("#editDay #name").val(response.data.data.name);
-                $("#editDay #id").val(response.data.data.id);
-            }).catch(function (response) {
-                //handle error
-                swal("خطأ !", "يوجد خطأ في استرجاع البيانات ، حاول مرة اخرى", "error");
-                //console.log(response);
-            });
-        }
-
-        function saveDay(){
-            var data=getFormData($('#form-editDay'));
-            //console.log(data);
-
-            axios({
-                method: 'put',
-                url:'localhost',
-                {{--url: '{{ route("updateDay") }}'+'/'+data.id,--}}
-                responseType:'json',
-                params:data
-            }).then(function (response) {
-                //handle success
-                //$("#editDay").modal('hide');
-                //location.reload();
                 success();
-            }).catch(function (response) {
-                //handle error
-                swal("خطأ !", "يوجد خطأ في استرجاع البيانات ، حاول مرة اخرى", "error");
-                //console.log(response);
+                //console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
             });
         }
+        
 
-        function deleteDay(item){
-            var id=$(item).attr('data-id');
-            axios({
-                method: 'delete',
-                url:'localhost',
-{{--                url: '{{ route("deleteDay") }}'+'/'+id,--}}
-                responseType:'json',
-                //params:data
-            }).then(function (response) {
-                //handle success
-                $("#editDay").modal('hide');
-                location.reload();
-            }).catch(function (response) {
-                //handle error
-                swal("خطأ !", "يوجد خطأ في استرجاع البيانات ، حاول مرة اخرى", "error");
-                //console.log(response);
-            });
-        }
-
-        function addNewBook() {
+        function addNewSubject() {
             var data=getFormData($("#form-addSubject"));
             console.log(data);
             axios({
                 method: 'post',
-                url:'localhost',
-{{--                url: '{{ route("addNewBook") }}',--}}
+                url: '{{ route("subjects.store") }}',
                 responseType:'json',
                 params:data
             }).then(function (response) {

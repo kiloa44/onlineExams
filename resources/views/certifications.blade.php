@@ -38,7 +38,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>الضف</th>
+                                                        <th>الصف</th>
                                                         <th>اسم الطالب</th>
                                                         <th>تاريخ الإصدار</th>
 {{--                                                        <th>الحلقة (المحفظ)</th>--}}
@@ -51,12 +51,14 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-{{--                                                    @foreach($students as $index => $student)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                        <td>{{ $student->name }}</td>--}}
+                                                    @foreach($certifications as $index => $certification)
+                                                    <tr>
+                                                        <th scope="col">{{ $index+1 }}</th>
+                                                        <td>{{ $certification->student->user->name }}</td>
 {{--                                                        <td>{{ $student->mobile_number }}</td>--}}
-{{--                                                        <td>{{ $student->export_date }}</td>--}}
+                                                        <td>{{ $certification->created_at}}</td>
+                                                        <td>{{ rand(30,100)}}</td>
+                                                        <td>{{ rand_array(array(['active','not active']))}}</td>
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->majorArea->name}}</td>--}}
@@ -64,15 +66,15 @@
 {{--                                                        <td>{{ $student->mosque->name }}</td>--}}
 {{--                                                        <td>{{ $student->updated_automatically_qualified== 1 ? "نشط" : "غير نشط" }}</td>--}}
 
-{{--                                                        <td>--}}
-{{--                                                            <!-- <div class="btn-group" role="group" aria-label="First Group">-->--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>--}}
-{{--                                                            <!--</div>-->--}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                    @endforeach--}}
+                                                        <td>
+                                                            <!-- <div class="btn-group" role="group" aria-label="First Group">-->
+                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>
+                                                            <!--</div>-->
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -104,126 +106,24 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="name">اسم الطالب</label>
-                                            <input type="text" id="name" class="form-control" placeholder="اسم الطالب" name="name">
+                                            <label for="student_identity_number">رقم هوية الطالب</label>
+                                            <input type="text" id="student_identity_number" class="form-control" placeholder="رقم هوية الطالب" name="student_identity_number">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="student_rate">معدل الطالب</label>
-                                            <input type="text" id="student_rate" class="form-control" placeholder="رقم الهوية" name="student_rate">
-                                        </div>
-                                    </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="export_date">تاريخ الإصدار</label>
                                             <input type="date" id="export_date" class="form-control" placeholder="تاريخ الميلاد" name="export_date">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="classroom">الصف</label>
                                             <input type="text" id="classroom" class="form-control" placeholder="الصف" name="classroom">
                                         </div>
                                     </div>
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="qualification_id">المؤهل العلمي</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="qualification_id" class="form-control" name="qualification_id">--}}
-{{--                                                    <option value="null">-- اخنر المؤهل العلمي --</option>--}}
-{{--                                                    @foreach($qualifications as $index => $qualification)--}}
-{{--                                                    <option value="{{ $qualification->id }}">{{ $qualification->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="qualification_auto_update">تحديث المؤهل آليا</label><br>--}}
-{{--                                            <div class="position-relative has-icon-left icheck_minimal skin">--}}
-{{--                                                <fieldset>--}}
-{{--                                                    <input type="checkbox" id="updated_automatically_qualified" name="updated_automatically_qualified" value="1">--}}
-{{--                                                    <label for="status">فعال </label>--}}
-{{--                                                </fieldset>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_name">اسم ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_name" class="form-control" placeholder="اسم ولي الامر" name="guardian_name">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_student_rate">رقم هوية ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_student_rate" class="form-control" placeholder="رقم هوية ولي الامر" name="guardian_student_rate">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                 </div>
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_mobile_number">رقم جوال ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_mobile_number" class="form-control" placeholder="رقم جوال ولي الامر" name="guardian_mobile_number">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="major_area_id">المنطقة الكبرى</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="major_area_id" class="form-control select2" name="major_area_id" onchange="getAreaByParentID(this)">--}}
-{{--                                                    <option value="null">-- اختر المنطقة الكبرى --</option>--}}
-{{--                                                    @foreach($majorAreas as $index => $majorArea)--}}
-{{--                                                    <option value="{{ $majorArea->id }}">{{ $majorArea->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="local_area_id">مكان السكن</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="local_area_id" class="form-control select2 local_area_id" name="local_area_id" onchange="getMosqueByLocalAreaID(this)">--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="mosque_id">المسجد</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="mosque_id" class="form-control select2 mosque_id" name="mosque_id">--}}
-
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                            </div>
-
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="group_id">الحلقة (المحفظ)</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="group_id" class="form-control" name="group_id">--}}
-{{--                                                    <option value="null">-- اختر المحفظ --</option>--}}
-{{--                                                    @foreach($groups as $index => $group)--}}
-{{--                                                    <option value="{{ $group->id }}">{{ $group->teacher->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -245,12 +145,12 @@
         </div>
         <!-- End Modal newCertification-->
         <!-- Modal editStudent-->
-        <div class="modal fade text-left" id="editStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        <div class="modal fade text-left" id="editCertification" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
              aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <label class="modal-title text-text-bold-600" id="myModalLabel33">تعديل بيانات طالب</label>
+                        <label class="modal-title text-text-bold-600" id="myModalLabel33">تعديل بيانات الشهادة</label>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -633,8 +533,7 @@
             //console.log(data);
             axios({
                 method:'post',
-                url:'localhost',
-                {{--url:'{{ route("addnewCertification") }}',--}}
+                url:'{{ route("certifications.store") }}',
                 responseType:'json',
                 data:data
             }).then(function (response) {

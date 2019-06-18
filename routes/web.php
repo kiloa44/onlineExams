@@ -19,12 +19,12 @@ use App\Exam;
 */
 
 Auth::routes();
+//Welcome
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/groups',function (){
-    return view('groups');
-});
+//Group
+Route::resource('subjects','SubjectController');
 
 
 //Student
@@ -32,45 +32,61 @@ Route::resource('students','StudentController');
 
 
 
+//Teacher
+Route::resource('teachers','TeacherController');
 
-Route::get('/users',function (){
-    return view('users');
-});
 
-Route::get('/teachers',function (){
-    return view('teachers');
-});
+//Question
+Route::resource('questions','QuestionController');
 
+
+
+//Exam
+Route::resource('exams','ExamController');
+
+
+//Certification
+Route::resource('certifications','CertificationController');
+
+
+//Exam
+Route::resource('users','UserController');
+
+
+
+//Role
 Route::get('/roles',function (){
     return view('roles');
-});
+})->name('roles');
 
-Route::get('/generalshow',function(){
-    return view("generalShow");
-});
+//General Show
+Route::get('/generalShow',function(){
+    $students = Student::all();
+    $subjects = Subject::all();
+    $classrooms = Classroom::all();
+    return view("generalShow")
+        ->with(compact('students'))
+        ->with(compact('classrooms'))
+        ->with(compact('subjects'));
+})->name('generalShow');
 
+
+//Minutes of meeting
 Route::get('/minutesofmeeting',function(){
     return view("minutes_meeting");
-});
+})->name('minutesofmeeting');
 
+
+//Mark
 Route::get('/marks',function(){
     return view("marks");
 });
-Route::get('/questions',function(){
-    return view("questions");
-});
 
-Route::get('/exams',function(){
-    return view("exams");
-});
 
-Route::get('/certifications',function(){
-    return view("certifications");
-});
-
+//Report
 Route::get('/reports',function(){
     return view("reports");
-});
+})->name('reports');
 
 
 

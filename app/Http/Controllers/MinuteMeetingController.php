@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Question;
+use App\MinuteMeeting;
 use Illuminate\Http\Request;
-use mysql_xdevapi\Exception;
-use Illuminate\Validation;
 
-class QuestionController extends Controller
+class MinuteMeetingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::all();
-        return view('questions')
-            ->with(compact('questions'));
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return "Whatever";
+        //
     }
 
     /**
@@ -39,34 +35,16 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->validate($request,
-//            [
-//                'type'=>'required',
-//                'text'=>'required'
-//            ]
-//        );
-
-        $this->validate($request, [
-            'type' => 'required',
-            'text' => 'required'
-        ]);
-
-        $question = new Question($this["type"], $this["text"]);
-        $question->type = $request->input('type');
-        $question->text = $request->input('text');
-
-        $question->save();
-
-        return "123";//Question::where("type",'choose')->get();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param  \App\MinuteMeeting  $minuteMeeting
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show(MinuteMeeting $minuteMeeting)
     {
         //
     }
@@ -74,10 +52,10 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param  \App\MinuteMeeting  $minuteMeeting
      * @return \Illuminate\Http\Response
      */
-    public function edit(Question $question)
+    public function edit(MinuteMeeting $minuteMeeting)
     {
         //
     }
@@ -86,10 +64,10 @@ class QuestionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Question  $question
+     * @param  \App\MinuteMeeting  $minuteMeeting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, MinuteMeeting $minuteMeeting)
     {
         //
     }
@@ -97,10 +75,10 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Question  $question
+     * @param  \App\MinuteMeeting  $minuteMeeting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy(MinuteMeeting $minuteMeeting)
     {
         //
     }

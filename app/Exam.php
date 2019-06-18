@@ -10,17 +10,21 @@ class Exam extends Model
 {
 
     protected $fillable = ['class_subject_id','name','description','begin_at','end_at','mark'];
-    public function subject(){
+
+    public function subject()
+    {
         return $this->hasOne('App\Subject','id','subject_id');
     }
 
-        public function exam_question()
-        {
-            return $this->hasMany('App\ExamQuestion');
-        }
+    public function exam_question()
+    {
+        return $this->hasMany('App\ExamQuestion');
+    }
 
     use SoftDeletes;
     protected $dates=['deleted_at'];
+
+
 
     public static function boot()
     {

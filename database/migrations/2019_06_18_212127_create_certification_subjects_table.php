@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudentsTable extends Migration
+class CreateCertificationSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('certification_subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("user_id")->unsigned();
-            $table->integer("guardian_id")->unsigned();
-            $table->integer("status")->unsigned();
-            //$table->integer("guardian_data");
-
-//            $table->integer("classroom_id")->unsigned();
+            $table->integer("certification_id")->unsigned();
+            $table->integer("subject_id")->unsigned();
+            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('certifications_id')->references('id')->on('certifications');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ class CreateStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('certification_subjects');
     }
 }

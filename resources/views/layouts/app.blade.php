@@ -98,21 +98,21 @@
             <li class=" navigation-header">
                 <span>الرئيسية</span><i class=" ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="الرئيسية"></i>
             </li>
-            <li><a class="menu-item" href="#"><i class="ft-settings"></i> المدخلات </a></li>
+            <li><a class="menu-item" href="{{route('generalShow')}}"><i class="ft-settings"></i> المدخلات </a></li>
             <li class=" nav-item"><a href="index.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">الإدارة</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">الأدوار والصلاحيات</a>
+                    <li><a class="menu-item" href="{{route('roles')}}">الأدوار والصلاحيات</a>
                     </li>
-                    <li><a class="menu-item" href="#">المستخدمين</a>
+                    <li><a class="menu-item" href="{{route("users.index")}}">المستخدمين</a>
                     </li>
-                    <li class="menu-item"><a class="menu-item" href="#">محاضر الإجتماعات</a>
+                    <li class="menu-item"><a class="menu-item" href="{{route("minutesofmeeting")}}">محاضر الإجتماعات</a>
                     </li>
                 </ul>
             </li>
             <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title" data-i18n="">هيكلية المدرسة</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">اضافة طالب لصف</a>
-                    </li>
+{{--                    <li><a class="menu-item" href="{{route("student.store")}}">اضافة طالب لصف</a>--}}
+{{--                    </li>--}}
                     <li><a class="menu-item" href="#">عرض العلامات</a>
                     </li>
 
@@ -120,27 +120,27 @@
             </li>
             <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title" data-i18n="">قسم الاختبارات</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">الاسئلة</a>
+                    <li><a class="menu-item" href="{{route('questions.index')}}">الاسئلة</a>
                     </li>
-                    <li><a class="menu-item" href="#">الاختبارات</a>
+                    <li><a class="menu-item" href="{{route('exams.index')}}">الاختبارات</a>
                     </li>
-                    <li><a class="menu-item" href="#">الشهادات</a>
+                    <li><a class="menu-item" href="{{route('certifications.index')}}">الشهادات</a>
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title" data-i18n="">قسم المسابقات</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="#">المسابقات</a>
-                    </li>
+{{--            <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title" data-i18n="">قسم المسابقات</span></a>--}}
+{{--                <ul class="menu-content">--}}
+{{--                    <li><a class="menu-item" href="#">المسابقات</a>--}}
+{{--                    </li>--}}
 
-                    </li>
-                </ul>
-            </li>
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
             <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title" data-i18n="">صفي</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">طلابي</a>
+                    <li><a class="menu-item" href="{{route('students.index')}}">طلابي</a>
                     </li>
-                    <li><a class="menu-item" href="#">تقارير</a>
+                    <li><a class="menu-item" href="{{route('reports')}}">تقارير</a>
                     </li>
 
                     </li>
