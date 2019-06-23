@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .question_text{
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
     <!-- Card sizing section start -->
     <section id="sizing">
         <div class="row">
@@ -38,7 +46,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>نص السؤال</th>
+                                                        <th class="question_text">نص السؤال</th>
                                                         <th>نوع السؤال</th>
 {{--                                                        <th>تاريخ الميلاد</th>--}}
 {{--                                                        --}}{{--                                                        <th>الحلقة (المحفظ)</th>--}}
@@ -54,12 +62,12 @@
                                                     @foreach($questions as $index => $question)
                                                     <tr>
                                                         <th scope="col">{{ $index+1 }}</th>
-                                                        <td>{{ $question->text }}</td>
+                                                        <td class="question_text">{{ $question->text }}</td>
                                                         <td>{{ $question->type}}</td>
                                                         <td>
                                                             <!-- <div class="btn-group" role="group" aria-label="First Group">-->
-                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $question->id }}" onclick="editQuestion(this)"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $question->id }}" id="confirm-text" onclick="deleteQuestion(this)" ><i class="fa fa-trash"></i></button>
                                                             <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>
                                                             <!--</div>-->
                                                         </td>
@@ -90,20 +98,30 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="form-addNewStudent" action="#">
+                    <form id="form-addQuestion" action="#">
                         <div class="modal-body">
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="question_text">نص السؤال</label>
-                                            <input type="text" id="question_text" class="form-control" placeholder="نص السؤال" name="question_text">
+                                            <label for="text">نص السؤال</label>
+                                            <input type="text" id="text" class="form-control" placeholder="نص السؤال" name="text">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="question_type">نوع السؤال</label>
-                                            <input type="text" id="question_type" class="form-control" placeholder="نوع السؤال" name="question_type">
+                                            <label for="type">نوع السؤال</label>
+                                            <input type="text" id="type" class="form-control" placeholder="نوع السؤال" name="type">
+
+{{--                                                <div class="col-md">--}}
+{{--                                                    <select id="projectinput6" name="interested" class="form-control">--}}
+{{--                                                        @foreach($roles as $index => $role)--}}
+{{--                                                        <option value="{{$role->name}}" {{($role->slug=='admin')?'selected=""':''}}>{{$role->description}} </option>--}}
+
+{{--                                                        @endforeach--}}
+{{--                                                    </select>--}}
+{{--                                                </div>--}}
+
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -225,9 +243,8 @@
 {{--                                </div>--}}
 {{--                            </div>--}}
                         </div>
-                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="addNewStudent()"><i class="fa fa-save"></i> إضافة</button>
+                    <button type="button" class="btn btn-primary" onclick="addQuestion()"><i class="fa fa-save"></i> إضافة</button>
                     <input type="reset" class="btn btn-secondary" data-dismiss="modal"
                            value="إغلاق">
                 </div>
@@ -236,8 +253,8 @@
         </div>
         </div>
         <!-- End Modal newStudent-->
-        <!-- Modal editStudent-->
-        <div class="modal fade text-left" id="editStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        <!-- Modal editQuestion-->
+        <div class="modal fade text-left" id="editQuestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
              aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -247,7 +264,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="form-editStudent" action="#">
+                    <form id="form-editQuestion" action="#">
                         <div class="modal-body">
                             <div class="form-body">
                                 <div class="row">
@@ -408,7 +425,7 @@
             </div>
         </div>
         </div>
-        <!-- End Modal editStudent-->
+        <!-- End Modal editQuestion-->
         <!-- Modal viewStudent-->
         <div class="modal fade text-left" id="viewStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
              aria-hidden="true">
@@ -619,14 +636,13 @@
     </section>
     <!-- Card sizing section end -->
     <script>
-        function addNewStudent() {
+        function addQuestion() {
 
-            var data=getFormData($("#form-addNewStudent"));
+            var data=getFormData($("#form-addQuestion"));
             //console.log(data);
             axios({
                 method:'post',
-                url:'localhost',
-                {{--url:'{{ route("addNewStudent") }}',--}}
+                url:'{{route('questions.store')}}',
                 responseType:'json',
                 data:data
             }).then(function (response) {
@@ -637,7 +653,7 @@
             });
         }
 
-        function editStudent(item) {
+        function editQuestion(item) {
             var id=$(item).attr('data-id');
             //console.log(id);
             axios({
@@ -648,31 +664,31 @@
                 responseType:'json',
             }).then(function (response) {
                 console.log(response.data);
-                $("#editStudent").modal('show');
-                $("#editStudent #form-editStudent #name").val(response.data.data.name);
-                $('#editStudent #form-editStudent #question_type').val(response.data.data.question_type).trigger('change');
-                $("#editStudent #form-editStudent #choices").val(dateReformatting(response.data.data.choices));
-                $("#editStudent #form-editStudent #mobile_number").val(response.data.data.mobile_number);
-                $('#editStudent #form-editStudent #qualification_id').val(response.data.data.qualification.id).trigger('change');
-                if(response.data.data.updated_automatically_qualified===1) $("#editGroup #form-editStudent #updated_automatically_qualified").iCheck('check');
-                $("#editStudent #form-editStudent #guardian_name").val(response.data.data.guardian_name);
-                $("#editStudent #form-editStudent #guardian_question_type").val(response.data.data.guardian_question_type);
-                $("#editStudent #form-editStudent #guardian_mobile_number").val(response.data.data.guardian_mobile_number);
-                $('#editStudent #form-editStudent #major_area_id').val(response.data.data.mosque.major_area_id).trigger('change');
-                $('#editStudent #form-editStudent #local_area_id').val(response.data.data.mosque.local_area_id);
+                $("#editQuestion").modal('show');
+                $("#editQuestion #form-editQuestion #name").val(response.data.data.name);
+                $('#editQuestion #form-editQuestion #question_type').val(response.data.data.question_type).trigger('change');
+                $("#editQuestion #form-editQuestion #choices").val(dateReformatting(response.data.data.choices));
+                $("#editQuestion #form-editQuestion #mobile_number").val(response.data.data.mobile_number);
+                $('#editQuestion #form-editQuestion #qualification_id').val(response.data.data.qualification.id).trigger('change');
+                if(response.data.data.updated_automatically_qualified===1) $("#editGroup #form-editQuestion #updated_automatically_qualified").iCheck('check');
+                $("#editQuestion #form-editQuestion #guardian_name").val(response.data.data.guardian_name);
+                $("#editQuestion #form-editQuestion #guardian_question_type").val(response.data.data.guardian_question_type);
+                $("#editQuestion #form-editQuestion #guardian_mobile_number").val(response.data.data.guardian_mobile_number);
+                $('#editQuestion #form-editQuestion #major_area_id').val(response.data.data.mosque.major_area_id).trigger('change');
+                $('#editQuestion #form-editQuestion #local_area_id').val(response.data.data.mosque.local_area_id);
                 getMosqueByLocalAreaID2(response.data.data.mosque.local_area_id);
-                $('#editStudent #form-editStudent #mosque_id').val(response.data.data.mosque.id).trigger('change');
-                $('#editStudent #form-editStudent #group_id').val(response.data.data.group_id).trigger('change');
-                $('#editStudent #form-editStudent #notes').val(response.data.data.notes);
-                $('#editStudent #form-editStudent #id').val(response.data.data.id);
-                //$('#editStudent #form-editGroup #supervisor_id').val(response.data.data.supervisor.id).trigger('change');
+                $('#editQuestion #form-editQuestion #mosque_id').val(response.data.data.mosque.id).trigger('change');
+                $('#editQuestion #form-editQuestion #group_id').val(response.data.data.group_id).trigger('change');
+                $('#editQuestion #form-editQuestion #notes').val(response.data.data.notes);
+                $('#editQuestion #form-editQuestion #id').val(response.data.data.id);
+                //$('#editQuestion #form-editGroup #supervisor_id').val(response.data.data.supervisor.id).trigger('change');
             }).catch(function (error) {
                 console.log(error);
             });
         }
 
         function saveStudent() {
-            var data=getFormData($("#form-editStudent"));
+            var data=getFormData($("#form-editQuestion"));
             axios({
                 method:'PUT',
                 url:'localhost',
@@ -690,17 +706,18 @@
 
         }
 
-        function deleteStudent(item) {
+        function deleteQuestion(item) {
             var id=$(item).attr('data-id');
 
             axios({
                 method:'DELETE',
-                url:'localhost',
+                url:'{{url("questions")}}'+'/'+id,
 
-                {{--url:'{{ route("deleteStudent") }}'+'/'+id,--}}
+                {{--url:'{{ route("deleteQuestion") }}'+'/'+id,--}}
                 responseType:'json',
             }).then(function (response) {
                 console.log(response.data);
+                location.reload();
             }).catch(function (error) {
                 console.log(error);
             });
@@ -725,106 +742,5 @@
             return newDate;
         }
 
-        function getDescriptionForQualification(item) {
-            // alert(item.value);
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('showQualification') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    $(".description_of_qualification").val(response.data.data.description);
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المؤهل العلمي","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المؤهل العلمي","error");
-            }
-        }
-
-        function getAreaByParentID(item) {
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getAreaByParentID') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".local_area_id").find("option").remove().end();
-
-                    $.each(response.data, function (index, item) {
-                        $(".local_area_id").append(new Option(item.name, item.id));
-                    });
-                    //console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة الكبرى","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة الكبرى","error");
-            }
-        }
-
-        function getMosqueByLocalAreaID(item) {
-            //console.log(item);
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".mosque_id").find("option").remove().end();
-
-                    $.each(response.data.data, function (index, item) {
-                        $(".mosque_id").append(new Option(item.name, item.id));
-                    });
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-            }
-        }
-
-        function getMosqueByLocalAreaID2(id) {
-            //console.log(item);
-            if (id) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+id,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".mosque_id").find("option").remove().end();
-
-                    $.each(response.data.data, function (index, item) {
-                        $(".mosque_id").append(new Option(item.name, item.id));
-                    });
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-            }
-        }
     </script>
 @endsection

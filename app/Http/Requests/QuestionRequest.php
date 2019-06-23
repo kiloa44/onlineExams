@@ -16,11 +16,11 @@ class QuestionRequest extends BaseRequest
     {
         return [
             "text"=>'required',
-            'is_correct'=>'required',
+            'is_correct'=>'sometimes',
             "correct_answer"=>'required',
             "type"=>'required',
             "choices"=>'required',
-            "class_subject_id"=>'required',
+            "class_subject_id"=>'sometimes',
 
         ];
     }

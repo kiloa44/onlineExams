@@ -18,7 +18,7 @@ class CreateCertificationSubjectsTable extends Migration
             $table->integer("certification_id")->unsigned();
             $table->integer("subject_id")->unsigned();
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->foreign('certifications_id')->references('id')->on('certifications');
+            $table->foreign('certification_id')->references('id')->on('certifications');
             $table->softDeletes();
             $table->timestamps();
         });

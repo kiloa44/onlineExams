@@ -54,11 +54,12 @@
                                                     @foreach($certifications as $index => $certification)
                                                     <tr>
                                                         <th scope="col">{{ $index+1 }}</th>
-                                                        <td>{{ $certification->student->user->name }}</td>
+                                                        <td>{{$certification->student_class}}</td>
+                                                        <td>{{ $certification->student_name }}</td>
 {{--                                                        <td>{{ $student->mobile_number }}</td>--}}
-                                                        <td>{{ $certification->created_at}}</td>
+                                                        <td>{{  date('d-M-y', strtotime($certification->created_at))}}</td>
                                                         <td>{{ rand(30,100)}}</td>
-                                                        <td>{{ rand_array(array(['active','not active']))}}</td>
+                                                        <td>{{ ['active','not active'][rand(0,1)]}}</td>
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->majorArea->name}}</td>--}}
@@ -68,8 +69,8 @@
 
                                                         <td>
                                                             <!-- <div class="btn-group" role="group" aria-label="First Group">-->
-                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $certification->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $certification->id }}" id="confirm-text" onclick="deleteCertification(this)" ><i class="fa fa-trash"></i></button>
                                                             <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>
                                                             <!--</div>-->
                                                         </td>
@@ -597,17 +598,16 @@
 
         }
 
-        function deleteStudent(item) {
+        function deleteCertification(item) {
             var id=$(item).attr('data-id');
 
             axios({
                 method:'DELETE',
-                url:'localhost',
-
-                {{--url:'{{ route("deleteStudent") }}'+'/'+id,--}}
+                url:'{{url("certifications")}}'+'/'+id,
                 responseType:'json',
             }).then(function (response) {
                 console.log(response.data);
+                location.reload();
             }).catch(function (error) {
                 console.log(error);
             });

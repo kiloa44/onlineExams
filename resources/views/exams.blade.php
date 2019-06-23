@@ -55,28 +55,31 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-{{--                                                    @foreach($students as $index => $student)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                        <td>{{ $student->name }}</td>--}}
-{{--                                                        <td>{{ $student->mobile_number }}</td>--}}
-{{--                                                        <td>{{ $student->teacher_name }}</td>--}}
-{{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
+                                                    @foreach($exams as $index => $exam)
+                                                    <tr>
+                                                        <th scope="col">{{ $index+1 }}</th>
+                                                        <td>{{ $exam->name }}</td>
+                                                        <td>{{$exam->subject->name}}</td>
+                                                        <td>{{ date('d-M-y', strtotime($exam->created_at))}}</td>
+                                                        <td>{{ $exam->class_subject->classroom->name}}</td>
+                                                        <td>{{ $exam->teacher->user->name }}</td>
+                                                        <td>{{ $exam->begin_at}}</td>
+                                                        <td>{{ $exam->end_at}}</td>
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->majorArea->name}}</td>--}}
 {{--                                                        <td>{{ $student->localArea->name }}</td>--}}
 {{--                                                        <td>{{ $student->mosque->name }}</td>--}}
 {{--                                                        <td>{{ $student->updated_automatically_qualified== 1 ? "نشط" : "غير نشط" }}</td>--}}
 
-{{--                                                        <td>--}}
-{{--                                                            <!-- <div class="btn-group" role="group" aria-label="First Group">-->--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $student->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $student->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>--}}
-{{--                                                            <!--</div>-->--}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                    @endforeach--}}
+                                                        <td>
+                                                            <!-- <div class="btn-group" role="group" aria-label="First Group">-->
+                                                            <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $exam->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $exam->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>
+                                                            <!--</div>-->
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

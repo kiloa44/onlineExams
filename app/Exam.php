@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Exam extends Model
 {
 
-    protected $fillable = ['class_subject_id','name','description','begin_at','end_at','mark'];
+    protected $fillable = ['class_subject_id','teacher_id','subject_id','name','description','begin_at','end_at','mark'];
 
     public function subject()
     {
@@ -20,6 +20,15 @@ class Exam extends Model
     {
         return $this->hasMany('App\ExamQuestion');
     }
+    public function class_subject(){
+        return $this->hasOne('App\ClassSubject','id','class_subject_id');
+    }
+    public function teacher(){
+        return $this->hasOne('App\Teacher','id','teacher_id');
+    }
+
+
+
 
     use SoftDeletes;
     protected $dates=['deleted_at'];

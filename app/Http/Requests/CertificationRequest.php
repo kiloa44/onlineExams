@@ -7,16 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class CertificationRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,7 +14,8 @@ class CertificationRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id'=>'numeric|required|unique:students,id',
+            'student_identity_number'=>'numeric|required|unique:students,id',
+            "classroom"=>"required",
             'notes'=>'sometimes'
         ];
     }

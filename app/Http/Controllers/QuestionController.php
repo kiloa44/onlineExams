@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -28,7 +29,6 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return "Whatever";
     }
 
     /**
@@ -37,27 +37,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
-//        $this->validate($request,
-//            [
-//                'type'=>'required',
-//                'text'=>'required'
-//            ]
-//        );
-
-        $this->validate($request, [
-            'type' => 'required',
-            'text' => 'required'
-        ]);
-
-        $question = new Question($this["type"], $this["text"]);
-        $question->type = $request->input('type');
-        $question->text = $request->input('text');
-
-        $question->save();
-
-        return "123";//Question::where("type",'choose')->get();
+        $request->validated();
+        Question::create($request->all());
+        return $this->sendResponse("","تمت عملية الاضافة بنجاح");
     }
 
     /**
@@ -100,8 +84,14 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy($id)
     {
-        //
+        try {
+
+            $question = Question::findOrFail($id)->first()->delete();
+            return $this->sendResponse($question);
+        }catch( ModelNotFoundException $e) {
+            return $this->sendError('هدا العنصر غير موجود');
+        }
     }
 }

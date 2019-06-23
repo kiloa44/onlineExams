@@ -660,7 +660,7 @@
             var identity_number=$(item).attr('data-id');
             var editUrl = '{{url("students")}}'+'/'+identity_number;
             console.log(editUrl);
-            alert('13');
+            //alert('13');
             axios({
                 method:'GET',
                 url:editUrl,
@@ -715,7 +715,7 @@
             var identity_number=$(item).attr('data-id');
             var deleteUrl = '{{url("students")}}'+'/'+identity_number;
             console.log(deleteUrl);
-            alert(8);
+            //alert(8);
             axios({
                 method:'DELETE',
                 url:deleteUrl,//identity_number,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Certification;
 use App\Http\Requests\CertificationRequest;
 use App\Student;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -40,18 +41,23 @@ class CertificationController extends Controller
     public function store(CertificationRequest $request)
     {
         try{
-        $request->validated();
-        $student = Student::where('identity_number',$request->student_identity_number)->first();
-        $certification = Certification::create([
-            'student_id'=>$student->id,
-            'student_name'=>$student->user->name,
-            'student_dob'=>$student->user->dob,
-            'notes'=>$request->notes,
-            'student_class'=>$request->classroom
-        ]);
-        }catch (ModelNotFoundException $e){
+            $request->validated();
+            $user = User::where('identity_number',$request->student_identity_number)->first();
+            $student = Student::where("user_id",$user->id)->first();
+            Certification::create([
+                'student_id'=>$student->id,
+                'student_name'=>$student->user->name,
+                'student_dob'=>$student->user->dob,
+                'notes'=>$request->notes,
+                'student_class'=>$request->classroom
+            ]);
+            return $this->sendResponse("","تمت عملية الاضافة بنجاح");
+        }
+        catch (ModelNotFoundException $e)
+        {
             return $e;
         }
+
     }
 
     /**
@@ -94,8 +100,15 @@ class CertificationController extends Controller
      * @param  \App\Certification  $certification
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Certification $certification)
+    public function destroy($id)
     {
-        //
+        try {
+
+            $certification= Certification::findOrFail($id)->first()->delete();
+//            $result =  Student::destroy($student->id);
+            return $this->sendResponse($certification);
+        }catch( ModelNotFoundException $e){
+            return $this->sendError(  'هدا العنصر غير موجود');
+        }
     }
 }

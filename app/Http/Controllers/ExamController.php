@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Teacher;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -14,7 +15,8 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        $exams = Exam::all();
+        return view('exams')->with(compact('exams'));
     }
 
     /**

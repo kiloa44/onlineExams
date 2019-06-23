@@ -89,6 +89,17 @@ Route::get('/reports',function(){
 })->name('reports');
 
 
+Route::get('/test',function (){
+
+    return \App\Certification::all()->first()->student_name;
+
+
+
+
+
+
+});
+
 
 
 

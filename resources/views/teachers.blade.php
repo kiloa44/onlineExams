@@ -56,29 +56,25 @@
                                                     </thead>
                                                     <tbody>
 
-{{--                                                    @foreach($Teachers as $index => $teacher)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <th scope="col">{{ $index+1 }}</th>--}}
-{{--                                                        <td>@if($teacher->user){{ $teacher->user->name }}@endif</td>--}}
-{{--                                                        <td>@if($teacher->group){{ $teacher->group->supervisor->name }}@endif</td>--}}
-{{--                                                        <td>@if($teacher->user){{ $teacher->user->mobile_number }}@endif</td>--}}
-{{--                                                        <td>0</td>--}}
-{{--                                                        <!--<td>12</td>-->--}}
-{{--                                                        <!--<td>12</td>-->--}}
-{{--                                                        <td>@if($teacher->majorArea){{ $teacher->majorArea->name }}@endif</td>--}}
-{{--                                                        <td>@if($teacher->localArea){{ $teacher->localArea->name }}@endif</td>--}}
-{{--                                                        <td>@if($teacher->mosque){{ $teacher->mosque->name }}@endif</td>--}}
-{{--                                                        <td> {{ $teacher->status == 1 ? "نشط" : "غير نشط" }} </td>--}}
-{{--                                                        <td>--}}
-{{--                                                            <!--<div class="btn-group" role="group" aria-label="First Group"> data-toggle="modal" data-target="#editTeacher"-->--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-warning btn-sm" data-toggle="modal" data-target="#userGroup"><i class="fa fa-table"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-light btn-sm"  data-id="{{ $teacher->id }}" onclick="editTeacher(this)"><i class="fa fa-edit"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" id="confirm-text" data-id="{{ $teacher->id }}" onclick="deleteTeacher(this)" ><i class="fa fa-trash"></i></button>--}}
-{{--                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewGroup" ><i class="fa fa-eye"></i></button>--}}
-{{--                                                            <!--</div>-->--}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                    @endforeach--}}
+                                                    @foreach($teachers as $index => $teacher)
+                                                    <tr>
+                                                        <th scope="col">{{ $index+1 }}</th>
+                                                        <td>{{ $teacher->user->name }}</td>
+                                                        <td>{{ $teacher->user->phone_number }}</td>
+                                                        <td>blank</td>
+                                                        <!--<td>12</td>-->
+                                                        <!--<td>12</td>-->
+                                                        <td> {{ $teacher->status == 1 ? "نشط" : "غير نشط" }} </td>
+                                                        <td>
+                                                            <!--<div class="btn-group" role="group" aria-label="First Group"> data-toggle="modal" data-target="#editTeacher"-->
+                                                            <button type="button" class="btn btn-icon btn-warning btn-sm" data-toggle="modal" data-target="#userGroup"><i class="fa fa-table"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-light btn-sm"  data-id="{{ $teacher->id }}" onclick="editTeacher(this)"><i class="fa fa-edit"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" id="confirm-text" data-id="{{ $teacher->id }}" onclick="deleteTeacher(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewGroup" ><i class="fa fa-eye"></i></button>
+                                                            <!--</div>-->
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
 
                                                     </tbody>
                                                 </table>

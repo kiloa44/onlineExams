@@ -15,12 +15,14 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('class_subject_id')->unsigned();
+            $table->integer('exam_question_id')->unsigned()->nullable();
+
             $table->text('text');
             $table->boolean('is_correct')->nullable();
             $table->string('correct_answer')->nullable();
             $table->string('type',10);
             $table->text('choices')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
             //$table->foreign('exam_id')->references('id')->on('exams');

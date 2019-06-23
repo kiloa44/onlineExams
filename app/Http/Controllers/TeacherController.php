@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $teachers = Teacher::all();
+        return view('teachers')->with(
+            compact('teachers')
+        );
     }
 
     /**
@@ -33,9 +37,11 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TeacherRequest $request)
     {
-        //
+        $request->validated();
+        Teacher::create($request->all());
+        return $this->sendResponse("","تمت عملية الإضافة بنجاخ");
     }
 
     /**
