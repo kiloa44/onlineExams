@@ -50,6 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
+            'identity_number' => 'required|numeric|unique:users',
             'type' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users',
@@ -65,14 +66,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user= User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'type'=>$data['type'],
-            'password' => bcrypt($data['password'])
-        ]);
-     //  if($user->type=='teacher')Teacher::
-        return $user;
+
+       if($data['type']=='teacher'){
+           $user= User::create([
+               'name' => $data['name'],
+               'email' => $data['email'],
+               'username' => $data['username'],
+               'identity_number' => $data['identity_number'],
+               'password' => bcrypt($data['password'])
+           ]);
+           $teacher = Teacher::create([
+               'user_id'=>$user->id,
+               'status'=>1,
+           ]);
+           return $user;
+       }else{
+           return 'Sorry , but you can\'t register as a student';
+       }
+
     }
 }

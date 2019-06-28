@@ -58,7 +58,7 @@
                             <label for="identity_number" class="col-md-4 control-label">Identity Number</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="identity_number" type="text" class="form-control" name="identity_number" value="{{ old('identity_number') }}" required autofocus>
 
                                 @if ($errors->has('identity_number'))
                                     <span class="help-block">
