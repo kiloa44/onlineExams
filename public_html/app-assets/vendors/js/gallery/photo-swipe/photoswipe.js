@@ -771,7 +771,7 @@ var _animations = {},
 
 var publicMethods = {
 
-	// make a few local variables and functions public
+	// make a few local variables and functions public_html
 	shout: _shout,
 	listen: _listen,
 	viewportSize: _viewportSize,
@@ -2471,7 +2471,7 @@ _registerModule('Gestures', {
 			if(_pointerEventEnabled && !_likelyTouchDevice) {
 				_likelyTouchDevice = (navigator.maxTouchPoints > 1) || (navigator.msMaxTouchPoints > 1);
 			}
-			// make variable public
+			// make variable public_html
 			self.likelyTouchDevice = _likelyTouchDevice; 
 			
 			_globalEventHandlers[_dragStartEvent] = _onDragStart;

@@ -679,7 +679,7 @@
         console.log(data);
         axios({
             method:'post',
-            url:"localhost/onlineExams/public/",
+            url:"localhost/onlineExams/public_html/",
             {{--url:'{{ route("addNewGroup") }}',--}}
             responseType:'json',
             data:data
@@ -698,7 +698,7 @@
         //console.log(id);
         axios({
             method:'GET',
-            url:"localhost/onlineExams/public/",
+            url:"localhost/onlineExams/public_html/",
             {{--url:'{{ route("showGroup") }}'+'/'+id,--}}
             responseType:'json',
         }).then(function (response) {
@@ -729,7 +729,7 @@
         var id=$("#editGroup #form-editGroup #id").val();
         axios({
             method:'PUT',
-            url:"localhost/onlineExams/public/",
+            url:"localhost/onlineExams/public_html/",
 {{--            url:'{{ route("updateGroup") }}'+'/'+id,--}}
             responseType:'json',
             data:data,
@@ -750,7 +750,7 @@
 
         axios({
             method:'DELETE',
-            url:"localhost/onlineExams/public/",
+            url:"localhost/onlineExams/public_html/",
             {{--url:'{{ route("deleteGroup") }}'+'/'+id,--}}
             responseType:'json',
         }).then(function (response) {
@@ -786,7 +786,7 @@
         if (item) {
             axios({
                 method: 'get',
-                url:"localhost/onlineExams/public/",
+                url:"localhost/onlineExams/public_html/",
 {{--                url: '{{ route('showQualification') }}'+'/'+item.value,--}}
                 responseType: 'json',
             }).then(function (response) {
@@ -806,7 +806,7 @@
         if (item) {
             axios({
                 method: 'get',
-                url:"localhost/onlineExams/public/",
+                url:"localhost/onlineExams/public_html/",
 {{--                url: '{{ route('getAreaByParentID') }}'+'/'+item.value,--}}
                 responseType: 'json',
             }).then(function (response) {
@@ -832,7 +832,7 @@
         if (item) {
             axios({
                 method: 'get',
-                url:"localhost/onlineExams/public/",
+                url:"localhost/onlineExams/public_html/",
 {{--                url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+item.value,--}}
                 responseType: 'json',
             }).then(function (response) {
@@ -858,7 +858,7 @@
         if (id) {
             axios({
                 method: 'get',
-                url:"localhost/onlineExams/public/",
+                url:"localhost/onlineExams/public_html/",
 {{--                url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+id,--}}
                 responseType: 'json',
             }).then(function (response) {

@@ -2068,7 +2068,7 @@ var __module11__ = (function(__dependency1__) {
     " class float package throws" +
     " const goto private transient" +
     " debugger implements protected volatile" +
-    " double import public let yield"
+    " double import public_html let yield"
   ).split(" ");
 
   var compilerWords = JavaScriptCompiler.RESERVED_WORDS = {};
