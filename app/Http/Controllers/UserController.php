@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -34,9 +35,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-
+        $request->validated();
+        $added = ["username"=>$request->name.$request->phone_number];
+        User::create($request->all()+$added);
+        return $this->sendResponse('','تمت عملية الإضافة بنجاح');
     }
 
     /**
@@ -81,6 +85,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $question = User::findOrFail($id)->first()->delete();
+            return $this->sendResponse($question);
+        }catch( ModelNotFoundException $e) {
+            return $this->sendError('هدا العنصر غير موجود');
+        }
     }
 }

@@ -19,7 +19,7 @@ class CreateExamQuestionsTable extends Migration
             $table->integer("student_id")->unsigned()->nullable();
             $table->integer("exam_id")->unsigned();
 
-            $table->float("question_mark")->unsigned();
+            $table->float("question_mark")->unsigned()->nullable();
             $table->float("deserved_mark")->unsigned()->nullable();
 
             $table->foreign('question_id')->references('id')->on('questions');

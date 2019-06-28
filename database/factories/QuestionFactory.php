@@ -3,8 +3,9 @@
 use Faker\Generator as Faker;
 use App\Exam;
 $factory->define(App\Question::class, function (Faker $faker) {
-
+    $subject = \App\Subject::inRandomOrder()->first();
     return [
+        'subject_id'=>$subject->id,
         'text'=> $faker->text,
         'is_correct'=> $faker->boolean,
         'correct_answer'=> $faker->title,

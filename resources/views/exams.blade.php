@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <!-- Card sizing section start -->
+    <style>
+        .container1 {width:390px; height: 100px; overflow-y: scroll}
+    </style>
     <section id="sizing">
         <div class="row">
             <div class="col-md-12">
@@ -40,7 +43,7 @@
                                                         <th>#</th>
                                                         <th>اسم الامتحان</th>
                                                         <th>المادة</th>
-                                                        <th>سنة الصنع</th>
+                                                        <th>تاريخ الصنع</th>
                                                         <th>صف الامتحان</th>
                                                         <th>اسم المعلم</th>
                                                         <th>تاريخ البداء</th>
@@ -59,12 +62,13 @@
                                                     <tr>
                                                         <th scope="col">{{ $index+1 }}</th>
                                                         <td>{{ $exam->name }}</td>
-                                                        <td>{{$exam->subject->name}}</td>
+                                                        <td>{{$exam->class_subject->subject->name}}</td>
                                                         <td>{{ date('d-M-y', strtotime($exam->created_at))}}</td>
                                                         <td>{{ $exam->class_subject->classroom->name}}</td>
                                                         <td>{{ $exam->teacher->user->name }}</td>
-                                                        <td>{{ $exam->begin_at}}</td>
-                                                        <td>{{ $exam->end_at}}</td>
+                                                        <td>{{ date('h:i:s', strtotime($exam->begin_at))}}</td>
+                                                        <td>{{ date('h:i:s', strtotime($exam->end_at))}}</td>
+                                                        <td>blank</td>
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->majorArea->name}}</td>--}}
 {{--                                                        <td>{{ $student->localArea->name }}</td>--}}
@@ -74,7 +78,7 @@
                                                         <td>
                                                             <!-- <div class="btn-group" role="group" aria-label="First Group">-->
                                                             <button type="button" class="btn btn-icon btn-light btn-sm" data-id="{{ $exam->id }}" onclick="editStudent(this)"><i class="fa fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $exam->id }}" id="confirm-text" onclick="deleteStudent(this)" ><i class="fa fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-icon btn-danger btn-sm" data-id="{{ $exam->id }}" id="confirm-text" onclick="deleteExam(this)" ><i class="fa fa-trash"></i></button>
                                                             <button type="button" class="btn btn-icon btn-info btn-sm" data-toggle="modal" data-target="#viewStudent" ><i class="fa fa-eye"></i></button>
                                                             <!--</div>-->
                                                         </td>
@@ -112,19 +116,31 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="name">اسم الامتحان</label>
-                                            <input type="text" id="name" class="form-control" placeholder="اسم الطالب" name="name">
+                                            <input type="text" id="name" class="form-control" placeholder="اسم الامتحان" name="name">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="classroom">صف الامتحان</label>
-                                            <input type="text" id="classroom" class="form-control" placeholder="رقم الهوية" name="classroom">
+{{--                                            <input type="text" id="classroom" class="form-control" placeholder="صف الامتحان" name="classroom">--}}
+                                            <div class="position-relative has-icon-left">
+                                                <select id="classroom" class="form-control" name="classroom">
+                                                    <option value="null">-- اختر الصف --</option>
+                                                    @foreach($classrooms as $index => $classroom)
+                                                        <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="teacher_name">اسم المعلم</label>
-                                            <input type="text" id="teacher_name" class="form-control" placeholder="تاريخ الميلاد" name="teacher_name">
+                                            <label for="teacher">اسم المعلم</label>
+                                            <select id="teacher" class="form-control" name="teacher">
+                                            @foreach($teachers as $index => $teacher)
+                                                <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
+                                            @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -132,115 +148,38 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="subject">المادة</label>
-                                            <input type="text" id="subject" class="form-control" placeholder="الصف" name="subject">
+{{--                                            <input type="text" id="subject" class="form-control" placeholder="المادة" name="subject">--}}
+                                            <div class="position-relative has-icon-left">
+                                                <select id="subject" class="form-control" name="subject" onchange="getQuestionsToSubject(this)">
+                                                    <option value="null">-- اختر المادة --</option>
+                                                    @foreach($subjects as $index => $subject)
+                                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
                                         </div>
                                     </div>
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="qualification_id">المؤهل العلمي</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="qualification_id" class="form-control" name="qualification_id">--}}
-{{--                                                    <option value="null">-- اخنر المؤهل العلمي --</option>--}}
-{{--                                                    @foreach($qualifications as $index => $qualification)--}}
-{{--                                                    <option value="{{ $qualification->id }}">{{ $qualification->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="qualification_auto_update">تحديث المؤهل آليا</label><br>--}}
-{{--                                            <div class="position-relative has-icon-left icheck_minimal skin">--}}
-{{--                                                <fieldset>--}}
-{{--                                                    <input type="checkbox" id="updated_automatically_qualified" name="updated_automatically_qualified" value="1">--}}
-{{--                                                    <label for="status">فعال </label>--}}
-{{--                                                </fieldset>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_name">اسم المعلم</label>--}}
-{{--                                            <input type="text" id="guardian_name" class="form-control" placeholder="اسم ولي الامر" name="guardian_name">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="questions">الأسئلة</label>
-                                            <input type="text" id="questions" class="form-control" placeholder="الأسئلة" name="questions">
+                                            <div id="questions" class="form-control container1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_mobile_number">رقم جوال ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_mobile_number" class="form-control" placeholder="رقم جوال ولي الامر" name="guardian_mobile_number">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="major_area_id">المنطقة الكبرى</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="major_area_id" class="form-control select2" name="major_area_id" onchange="getAreaByParentID(this)">--}}
-{{--                                                    <option value="null">-- اختر المنطقة الكبرى --</option>--}}
-{{--                                                    @foreach($majorAreas as $index => $majorArea)--}}
-{{--                                                    <option value="{{ $majorArea->id }}">{{ $majorArea->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="local_area_id">مكان السكن</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="local_area_id" class="form-control select2 local_area_id" name="local_area_id" onchange="getMosqueByLocalAreaID(this)">--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="mosque_id">المسجد</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="mosque_id" class="form-control select2 mosque_id" name="mosque_id">--}}
-
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                             </div>
 
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="group_id">الحلقة (المحفظ)</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="group_id" class="form-control" name="group_id">--}}
-{{--                                                    <option value="null">-- اختر المحفظ --</option>--}}
-{{--                                                    @foreach($groups as $index => $group)--}}
-{{--                                                    <option value="{{ $group->id }}">{{ $group->teacher->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="notes">ملحوظات</label>
-                                            <textarea id="notes" class="form-control" placeholder="ملحوظات" name="notes" rows="5"></textarea>
+                                            <label for="description">ملحوظات</label>
+                                            <textarea id="description" class="form-control" placeholder="الوصف" name="description" rows="5"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" onclick="addnewExam()"><i class="fa fa-save"></i> إضافة</button>
                             <input type="reset" class="btn btn-secondary" data-dismiss="modal"
@@ -324,12 +263,12 @@
                                             <input type="text" id="guardian_name" class="form-control" placeholder="اسم ولي الامر" name="guardian_name">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="questions">رقم هوية ولي الامر</label>
-                                            <input type="text" id="questions" class="form-control" placeholder="رقم هوية ولي الامر" name="questions">
-                                        </div>
-                                    </div>
+{{--                                    <div class="col-md-4">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <label for="questions">رقم هوية ولي الامر</label>--}}
+{{--                                            <input type="text" id="questions1" class="form-control" placeholder="رقم هوية ولي الامر" name="questions">--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="guardian_mobile_number">رقم جوال ولي الامر</label>
@@ -352,45 +291,7 @@
                                             </div>
                                         </div>
                                     </div>
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="local_area_id">المنطقة المحلية</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="local_area_id" class="form-control select2 local_area_id" name="local_area_id" onchange="getMosqueByLocalAreaID(this)">--}}
 
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="mosque_id">المسجد</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="mosque_id" class="form-control mosque_id" name="mosque_id">--}}
-{{--                                                    <option value="1">مسجد الفاتح</option>--}}
-{{--                                                    <option value="2">مسجد صلاح الدين</option>--}}
-{{--                                                    <option value="3">المسجد العمري</option>--}}
-{{--                                                    <option value="4">المسجد الكبير</option>--}}
-{{--                                                    <option value="5">مسجد يافا</option>--}}
-{{--                                                    <option value="6">مسجد الشافعي</option>--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="group_id">الحلقة (المحفظ)</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="group_id" class="form-control select2" name="group_id">--}}
-{{--                                                    <option value="null">-- اختر المحفظ --</option>--}}
-{{--                                                    @foreach($groups as $index => $group)--}}
-{{--                                                        <option value="{{ $group->id }}">{{ $group->teacher->name }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label >حالة الطالب</label><br>
@@ -411,18 +312,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
+                    </form>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" onclick="saveStudent()"><i class="fa fa-save"></i> حفظ</button>
                             <input type="reset" class="btn btn-secondary" data-dismiss="modal"
                                    value="إغلاق">
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+
         <!-- End Modal editStudent-->
         <!-- Modal viewStudent-->
         <div class="modal fade text-left" id="viewStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
@@ -634,19 +533,103 @@
     </section>
     <!-- Card sizing section end -->
     <script>
+        function getStuff(list){
+            var i =[];
+            function recursion(list) {
+                if(typeof list != 'string'){
+                    return recursion(list[0]),i.push(list[list.length-1]);
+                }
+                else
+                {
+                    i.push(list);
+                }
+            }
+            recursion(list);
+            return i;
+        }
+
+
+
         function addnewExam() {
 
             var data=getFormData($("#form-addnewExam"));
-            //console.log(data);
+            var fields = $( ":input" ).serializeArray();
+            var indexed_array = {};
+
+            $.map(fields, function(item, index){
+                if (item['name'] in indexed_array){
+
+                    indexed_array[item['name']] =[indexed_array[item['name']],item['value']];
+                }else{
+                    indexed_array[item['name']] = item['value'];
+                }
+            });
+            console.log(indexed_array['questions']);
+            var questions = getStuff(indexed_array['questions']);
+            console.log(questions);
+            data.questions = questions;
+
+
+
+
+
+
+
+
+
+
+
+
             axios({
                 method:'post',
-                url:'localhost',
-                {{--url:'{{ route("addnewExam") }}',--}}
+                url:'{{route('exams.store')}}',
                 responseType:'json',
                 data:data
             }).then(function (response) {
                 success();
-                //console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+        //on Track
+        function getQuestionsToSubject(select){
+            var subject_id = select.value;
+            var quesitons = $('#questions')[0];
+            console.log(quesitons);
+            axios({
+                method:'GET',
+                url:'api/SubQuestions'+'/'+subject_id,
+                responseType:'json',
+            }).then(function (response) {
+                //success();
+                console.log(response.data);
+                questions.innerHTML='';
+                response.data.forEach(function (question) {
+
+                    var checkbox = document.createElement('input');
+                    checkbox.type = "checkbox";
+                    checkbox.name = "questions";
+                    checkbox.value = question.id;
+                    checkbox.id = question.id;
+
+                    // creating label for checkbox
+                    var label = document.createElement('label');
+                    label.htmlFor = checkbox.id;
+
+                    label.appendChild(document.createTextNode(question.text));
+                    quesitons.appendChild(checkbox);
+                    quesitons.appendChild(label);
+                });
             }).catch(function (error) {
                 console.log(error);
             });
@@ -705,16 +688,15 @@
 
         }
 
-        function deleteStudent(item) {
+        function deleteExam(item) {
             var id=$(item).attr('data-id');
 
             axios({
                 method:'DELETE',
-                url:'localhost',
-
-                {{--url:'{{ route("deleteStudent") }}'+'/'+id,--}}
+                url:'{{url("exams")}}'+'/'+id,
                 responseType:'json',
             }).then(function (response) {
+                location.reload();
                 console.log(response.data);
             }).catch(function (error) {
                 console.log(error);
@@ -740,106 +722,5 @@
             return newDate;
         }
 
-        function getDescriptionForQualification(item) {
-            // alert(item.value);
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('showQualification') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    $(".description_of_qualification").val(response.data.data.description);
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المؤهل العلمي","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المؤهل العلمي","error");
-            }
-        }
-
-        function getAreaByParentID(item) {
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getAreaByParentID') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".local_area_id").find("option").remove().end();
-
-                    $.each(response.data, function (index, item) {
-                        $(".local_area_id").append(new Option(item.name, item.id));
-                    });
-                    //console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة الكبرى","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة الكبرى","error");
-            }
-        }
-
-        function getMosqueByLocalAreaID(item) {
-            //console.log(item);
-            if (item) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+item.value,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".mosque_id").find("option").remove().end();
-
-                    $.each(response.data.data, function (index, item) {
-                        $(".mosque_id").append(new Option(item.name, item.id));
-                    });
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-            }
-        }
-
-        function getMosqueByLocalAreaID2(id) {
-            //console.log(item);
-            if (id) {
-                axios({
-                    method: 'get',
-                    url:'localhost',
-
-                    {{--url: '{{ route('getMosqueByLocalAreaID') }}'+'/'+id,--}}
-                    responseType: 'json',
-                }).then(function (response) {
-                    //$("#form-addNewTeacher #description_of_qualification").val(response.data.data.description);
-                    $(".mosque_id").find("option").remove().end();
-
-                    $.each(response.data.data, function (index, item) {
-                        $(".mosque_id").append(new Option(item.name, item.id));
-                    });
-                    console.log(response.data);
-                }).catch(function (error) {
-                    //console.log(error);
-                    swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-                });
-            }
-            else {
-                swal("خطا !","الرجاء تحديد المنطقة المحلية","error");
-            }
-        }
     </script>
     @endsection

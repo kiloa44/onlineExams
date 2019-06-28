@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Classroom;
+use App\ClassSubject;
 use App\Exam;
+use App\ExamQuestion;
+use App\Http\Requests\ExamRequest;
+use App\Subject;
 use App\Teacher;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -15,8 +21,15 @@ class ExamController extends Controller
      */
     public function index()
     {
+        $subjects = Subject::all();
+        $teachers = Teacher::all();
+        $classrooms= Classroom::all();
         $exams = Exam::all();
-        return view('exams')->with(compact('exams'));
+        return view('exams')
+            ->with(compact('exams'))
+            ->with(compact('teachers'))
+            ->with(compact('classrooms'))
+            ->with(compact('subjects'));
     }
 
     /**
@@ -35,9 +48,27 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
-        //
+        $request->validated();
+        $classSubject = ClassSubject::create([
+            'classroom_id'=>$request->classroom,
+            'subject_id'=>$request->subject,
+        ]);
+
+        $exam = Exam::create([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'teacher_id'=>$request->teacher,
+            'class_subject_id'=>$classSubject->id,
+        ]);
+        foreach ($request->questions as $question){
+            ExamQuestion::create([
+                "exam_id"=>$exam->id,
+                "question_id"=>$question,
+            ]);
+        }
+        return $this->sendResponse('','تمت عملية الإضافة بنجاح');
     }
 
     /**
@@ -80,8 +111,13 @@ class ExamController extends Controller
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam $exam)
+    public function destroy($id)
     {
-        //
+        try {
+            $exam = Exam::findOrFail($id)->first()->delete();
+            return $this->sendResponse($exam);
+        }catch( ModelNotFoundException $e){
+            return $this->sendError(  'هدا العنصر غير موجود');
+        }
     }
 }

@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
 
     /**
      * Get the validation rules that apply to the request.
@@ -21,10 +16,11 @@ class UserRequest extends BaseRequest
     {
         return [
             "name"=>'required',
-            "username"=>'required|unique:users,id',
+            "username"=>'sometimes|unique:users,id',
             "email"=>"required|unique:users,id",
             "password"=>'sometimes',
             "phone_number"=>'numeric|required|unique:users,phone_number',
+            "address"=>'sometimes',
             "identity_number"=>'numeric|required|unique:users,identity_number',
             "dob"=>'numeric|sometimes'
 

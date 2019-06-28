@@ -105,7 +105,7 @@ class CertificationController extends Controller
         try {
 
             $certification= Certification::findOrFail($id)->first()->delete();
-//            $result =  Student::destroy($student->id);
+
             return $this->sendResponse($certification);
         }catch( ModelNotFoundException $e){
             return $this->sendError(  'هدا العنصر غير موجود');

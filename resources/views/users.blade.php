@@ -54,7 +54,7 @@
                                                     <tr>
                                                         <th scope="col">{{ $index+1 }}</th>
                                                         <td>{{ $user->name }}</td>
-                                                        <td>blank</td>
+                                                        <td>{{ $user->address }}</td>
 {{--                                                        <td>@if($user->localArea){{ $user->localArea->parentArea->name }}@endif</td>--}}
 {{--                                                        <td>@if($user->localArea){{ $user->localArea->name }}@endif</td>--}}
                                                         <td>{{ $user->identity_number }}</td>
@@ -121,22 +121,25 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="mobile_number">رقم الجوال</label>
-                                        <input type="text" id="mobile_number" class="form-control" placeholder="رقم الجوال" name="mobile_number">
+                                        <label for="phone_number">رقم الجوال</label>
+                                        <input type="text" id="phone_number" class="form-control" placeholder="رقم الجوال" name="phone_number">
                                     </div>
                                 </div>
 
                                  <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="area_id">مكان السكن</label>
-                                            <div class="position-relative has-icon-left">
-                                                <select id="area_id" class="form-control" name="area_id" onchange="getAreaByParentID(this)">
-                                                    <option value="1">-- اختر مكان السكن --</option>
+                                            <label for="address">مكان السكن</label>
+                                            <input type="text" id="address" class="form-control" placeholder="مكان السكن" name="address">
+
+                                            {{--                                            <div class="position-relative has-icon-left">--}}
+{{--                                                --}}
+{{--                                                <select id="address" class="form-control" name="address" onchange="getAreaByParentID(this)">--}}
+{{--                                                    <option value="1">-- اختر مكان السكن --</option>--}}
 {{--                                                    @foreach($MajorAreas as $MajorArea)--}}
 {{--                                                        <option value="{{ $MajorArea['id'] }}">{{ $MajorArea['name'] }}</option>--}}
 {{--                                                    @endforeach--}}
-                                                </select>
-                                            </div>
+{{--                                                </select>--}}
+{{--                                            </div>--}}
                                         </div>
                                   </div>
 {{--                                  <div class="col-md-4">--}}
@@ -158,19 +161,19 @@
 {{--                                        <input type="password" id="password" class="form-control" placeholder="كلمة المرور" name="password">--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="roleName">الدور</label>
-                                        <div class="position-relative has-icon-left">
-                                            <select id="roleName" class="form-control select2" name="roleName">
-                                                <option value="null">-- اختر الدور --</option>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="roleName">الدور</label>--}}
+{{--                                        <div class="position-relative has-icon-left">--}}
+{{--                                            <select id="roleName" class="form-control select2" name="roleName">--}}
+{{--                                                <option value="null">-- اختر الدور --</option>--}}
 {{--                                                @foreach($roles as $index => $role)--}}
 {{--                                                <option value="{{ $role->id }}">{{ $role->description }}</option>--}}
 {{--                                                @endforeach--}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                         </div>
                     </div>
@@ -223,8 +226,8 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="mobile_number">رقم الجوال</label>
-                                        <input type="text" id="mobile_number" class="form-control" placeholder="رقم الجوال" name="mobile_number">
+                                        <label for="phone_number">رقم الجوال</label>
+                                        <input type="text" id="phone_number" class="form-control" placeholder="رقم الجوال" name="phone_number">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -362,11 +365,12 @@
 
             axios({
                 method:'DELETE',
-                url:'localhost',
+                url:'{{url("users")}}'+'/'+id,
 {{--                url:'{{ route("deleteUser") }}'+'/'+id,--}}
                 responseType:'json',
             }).then(function (response) {
                 console.log(response.data);
+                location.reload();
             }).catch(function (error) {
                 console.log(error);
             });

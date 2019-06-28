@@ -8,16 +8,21 @@ use Psy\Util\Json;
 
 class Question extends Model
 {
-    protected $fillable = ['class_subject_id','text','is_correct','correct_answer','type','choices'];
+    protected $fillable = ['subject_id','text','is_correct','correct_answer','type','choices'];
 
     public function storeChoices($choices){
         $this->choices=Json::encode($choices);
     }
 
-     public function exam_question()
-        {
-            return $this->hasMany('App\ExamQuestion');
-        }
+    public function subject()
+    {
+        return $this->hasOne('App\Subject');
+    }
+
+    public function exam_question()
+    {
+        return $this->hasMany('App\ExamQuestion');
+    }
 
 
 

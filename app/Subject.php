@@ -11,12 +11,17 @@ class Subject extends Model
 
    public function exams()
    {
-       $this->hasMany('App\Exam', 'subject_id', 'id');
+       $this->hasMany('App\Exam');
    }
     public function class_subject()
     {
         return $this->hasMany('App\ClassSubject');
     }
+
+    public function questions(){
+       return $this->hasMany('App\Question');
+    }
+
 
     public function teacher_subject()
     {

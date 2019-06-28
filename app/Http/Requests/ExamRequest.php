@@ -17,9 +17,12 @@ class ExamRequest extends BaseRequest
         return [
             "name"=>'required',
             "description"=>'sometimes',
-            'begin_at'=>'required',
-            'end_at'=>'required',
-            'class_subject_id'=>"required"
+//            'begin_at'=>'required',
+//            'end_at'=>'required',
+            "questions"=>'required',
+            "subject"=>'required|numeric',
+            "classroom"=>'required|numeric',
+            "teacher"=>'required|numeric',
         ];
     }
 }

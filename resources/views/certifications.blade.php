@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <!-- Card sizing section start -->
     <section id="sizing">
         <div class="row">

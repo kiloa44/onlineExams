@@ -9,12 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Exam extends Model
 {
 
-    protected $fillable = ['class_subject_id','teacher_id','subject_id','name','description','begin_at','end_at','mark'];
+    protected $fillable = ['class_subject_id','teacher_id','name','description','begin_at','end_at','mark'];
 
-    public function subject()
-    {
-        return $this->hasOne('App\Subject','id','subject_id');
-    }
 
     public function exam_question()
     {

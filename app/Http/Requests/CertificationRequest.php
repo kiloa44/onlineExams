@@ -15,7 +15,7 @@ class CertificationRequest extends FormRequest
     {
         return [
             'student_identity_number'=>'numeric|required|unique:students,id',
-            "classroom"=>"required",
+            //"classroom"=>"required",
             'notes'=>'sometimes'
         ];
     }

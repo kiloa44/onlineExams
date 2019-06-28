@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubjectRequest;
 use App\Subject;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use function MongoDB\BSON\toJSON;
 
 class SubjectController extends Controller
 {
@@ -85,5 +87,17 @@ class SubjectController extends Controller
     public function destroy(Subject $subject)
     {
         //
+    }
+
+    public function GetQuestions($id)
+    {
+        //return $id;
+        try{
+        $subject = Subject::findOrFail($id);
+        $questions = $subject->questions;
+        return $questions;
+        }catch (ModelNotFoundException $e){
+            return $e;
+        }
     }
 }

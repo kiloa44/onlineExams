@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <style>
-        .question_text{
+        .shrink_it{
             max-width: 300px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -46,7 +46,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th class="question_text">نص السؤال</th>
+                                                        <th class="shrink_it">نص السؤال</th>
                                                         <th>نوع السؤال</th>
 {{--                                                        <th>تاريخ الميلاد</th>--}}
 {{--                                                        --}}{{--                                                        <th>الحلقة (المحفظ)</th>--}}
@@ -62,7 +62,7 @@
                                                     @foreach($questions as $index => $question)
                                                     <tr>
                                                         <th scope="col">{{ $index+1 }}</th>
-                                                        <td class="question_text">{{ $question->text }}</td>
+                                                        <td class="shrink_it">{{ $question->text }}</td>
                                                         <td>{{ $question->type}}</td>
                                                         <td>
                                                             <!-- <div class="btn-group" role="group" aria-label="First Group">-->

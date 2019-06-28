@@ -14,7 +14,8 @@ class CertificationSubjectController extends Controller
      */
     public function index()
     {
-        //
+        $certifications = Certification::all();
+        return view("certifications")->with(compact('certifications'));
     }
 
     /**

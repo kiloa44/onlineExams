@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .shrink_it{
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
     <!-- Card sizing section start -->
     <section id="sizing">
         <div class="row">
@@ -43,10 +51,9 @@
                                                         <th>تاريخ الميلاد</th>
 {{--                                                        <th>الحلقة (المحفظ)</th>--}}
 {{--                                                        <th>المشرف العام</th>--}}
-                                                        <th>مكان السكن</th>
-                                                        <th>معدل الطالب</th>
+                                                        <th class="shrink_it">مكان السكن</th>
+                                                        <th>معدل <br>الطالب</th>
 {{--                                                        <th>المسجد</th>--}}
-                                                        <th>حالة الطالب</th>
                                                         <th>خيارات</th>
                                                     </tr>
                                                     </thead>
@@ -59,11 +66,10 @@
                                                         <td>{{ $student->user->dob }}</td>
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
 {{--                                                        <td>{{ $student->group->teacher->name }}</td>--}}
-                                                        <td>blank</td>
+                                                        <td class="shrink_it">{{$student->user->address}}</td>
                                                         <td>{{rand(30,100)}}</td>
 {{--                                                        <td>{{ $student->localArea->name }}</td>--}}
 {{--                                                        <td>{{ $student->mosque->name }}</td>--}}
-                                                        <td>{{array_rand(['غير نشط','نشط'])}}</td>
 {{--                                                        <td>{{ $student->updated_automatically_qualified== 1 ? "نشط" : "غير نشط" }}</td>--}}
 
                                                         <td>
