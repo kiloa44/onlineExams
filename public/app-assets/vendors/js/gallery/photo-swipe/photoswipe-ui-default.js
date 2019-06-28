@@ -4,7 +4,7 @@
 /**
 *
 * UI on top of main sliding area (caption, arrows, close button, etc.).
-* Built just using public_html methods/properties of PhotoSwipe.
+* Built just using public methods/properties of PhotoSwipe.
 * 
 */
 (function (root, factory) { 

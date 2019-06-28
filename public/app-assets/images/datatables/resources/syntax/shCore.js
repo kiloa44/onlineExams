@@ -1979,7 +1979,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
         var keywords =  'abstract and array as break case catch cfunction class clone const continue declare default die do ' +
                         'else elseif enddeclare endfor endforeach endif endswitch endwhile extends final finally for foreach ' +
                         'function global goto if implements include include_once interface instanceof insteadof namespace new ' +
-                        'old_function or private protected public_html return require require_once static switch ' +
+                        'old_function or private protected public return require require_once static switch ' +
                         'trait throw try use var while xor yield ';
         
         var constants   = '__FILE__ __LINE__ __METHOD__ __FUNCTION__ __CLASS__';
@@ -2031,7 +2031,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
                         'int integer intersect into is isolation key last level load local max min ' +
                         'minute modify move name national nchar next no numeric of off on only ' +
                         'open option order out output partial password precision prepare primary ' +
-                        'prior privileges procedure public_html read real references relative repeatable ' +
+                        'prior privileges procedure public read real references relative repeatable ' +
                         'restrict return returns revoke rollback rollup rows rule schema scroll ' +
                         'second section select sequence serializable set size smallint static ' +
                         'statistics table temp temporary then time timestamp to top transaction ' +
@@ -2094,7 +2094,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
                         'continue decimal default delegate do double else enum event explicit volatile ' +
                         'extern false finally fixed float for foreach get goto if implicit in int ' +
                         'interface internal is lock long namespace new null object operator out ' +
-                        'override params private protected public_html readonly ref return sbyte sealed set ' +
+                        'override params private protected public readonly ref return sbyte sealed set ' +
                         'short sizeof stackalloc static string struct switch this throw true try ' +
                         'typeof uint ulong unchecked unsafe ushort using virtual void while var ' +
                         'from group by into select let where orderby join on equals ascending descending';

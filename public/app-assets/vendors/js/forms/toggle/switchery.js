@@ -6,7 +6,7 @@
  *
  * @param {String} name
  * @return {Object} exports
- * @api public_html
+ * @api public
  */
 
 function require(name) {
@@ -164,7 +164,7 @@ module.exports = Transitionize;
  *
  * @param {Object} element
  * @param {Object} props
- * @api public_html
+ * @api public
  */
 
 function Transitionize(element, props) {
@@ -1031,7 +1031,7 @@ var toString = Object.prototype.toString;
  *
  * @param {Element} el
  * @return {ClassList}
- * @api public_html
+ * @api public
  */
 
 module.exports = function(el){
@@ -1056,7 +1056,7 @@ function ClassList(el) {
  *
  * @param {String} name
  * @return {ClassList}
- * @api public_html
+ * @api public
  */
 
 ClassList.prototype.add = function(name){
@@ -1081,7 +1081,7 @@ ClassList.prototype.add = function(name){
  *
  * @param {String|RegExp} name
  * @return {ClassList}
- * @api public_html
+ * @api public
  */
 
 ClassList.prototype.remove = function(name){
@@ -1130,7 +1130,7 @@ ClassList.prototype.removeMatching = function(re){
  * @param {String} name
  * @param {Boolean} force
  * @return {ClassList}
- * @api public_html
+ * @api public
  */
 
 ClassList.prototype.toggle = function(name, force){
@@ -1168,7 +1168,7 @@ ClassList.prototype.toggle = function(name, force){
  * Return an array of classes.
  *
  * @return {Array}
- * @api public_html
+ * @api public
  */
 
 ClassList.prototype.array = function(){
@@ -1183,7 +1183,7 @@ ClassList.prototype.array = function(){
  *
  * @param {String} name
  * @return {ClassList}
- * @api public_html
+ * @api public
  */
 
 ClassList.prototype.has =
@@ -1208,7 +1208,7 @@ var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
  * @param {Function} fn
  * @param {Boolean} capture
  * @return {Function}
- * @api public_html
+ * @api public
  */
 
 exports.bind = function(el, type, fn, capture){
@@ -1224,7 +1224,7 @@ exports.bind = function(el, type, fn, capture){
  * @param {Function} fn
  * @param {Boolean} capture
  * @return {Function}
- * @api public_html
+ * @api public
  */
 
 exports.unbind = function(el, type, fn, capture){
@@ -1293,7 +1293,7 @@ module.exports = match;
  * @param {Element} el
  * @param {String} selector
  * @return {Boolean}
- * @api public_html
+ * @api public
  */
 
 function match(el, selector) {
@@ -1350,7 +1350,7 @@ var closest = require('component~closest@0.1.4')
  * @param {Function} fn
  * @param {Boolean} capture
  * @return {Function}
- * @api public_html
+ * @api public
  */
 
 exports.bind = function(el, selector, type, fn, capture){
@@ -1368,7 +1368,7 @@ exports.bind = function(el, selector, type, fn, capture){
  * @param {String} type
  * @param {Function} fn
  * @param {Boolean} capture
- * @api public_html
+ * @api public
  */
 
 exports.unbind = function(el, type, fn, capture){
@@ -1399,7 +1399,7 @@ module.exports = Events;
  *
  * @param {Object} el
  * @param {Object} obj
- * @api public_html
+ * @api public
  */
 
 function Events(el, obj) {
@@ -1443,7 +1443,7 @@ Events.prototype.sub = function(event, method, cb){
  * @param {String} event
  * @param {String|function} [method]
  * @return {Function} callback
- * @api public_html
+ * @api public
  */
 
 Events.prototype.bind = function(event, method){
@@ -1493,7 +1493,7 @@ Events.prototype.bind = function(event, method){
  *
  * @param {String|Function} [event]
  * @param {String|Function} [method]
- * @api public_html
+ * @api public
  */
 
 Events.prototype.unbind = function(event, method){
@@ -1589,7 +1589,7 @@ module.exports = Switchery;
 /**
  * Set Switchery default values.
  *
- * @api public_html
+ * @api public
  */
 
 var defaults = {
@@ -1609,7 +1609,7 @@ var defaults = {
  *
  * @param {Object} element
  * @param {Object} options
- * @api public_html
+ * @api public
  */
 
 function Switchery(element, options) {
@@ -1887,7 +1887,7 @@ Switchery.prototype.init = function() {
  * See if input is checked.
  *
  * @returns {Boolean}
- * @api public_html
+ * @api public
  */
 
 Switchery.prototype.isChecked = function() {
@@ -1898,7 +1898,7 @@ Switchery.prototype.isChecked = function() {
  * See if switcher should be disabled.
  *
  * @returns {Boolean}
- * @api public_html
+ * @api public
  */
 
 Switchery.prototype.isDisabled = function() {
@@ -1908,7 +1908,7 @@ Switchery.prototype.isDisabled = function() {
 /**
  * Destroy all event handlers attached to the switch.
  *
- * @api public_html
+ * @api public
  */
 
 Switchery.prototype.destroy = function() {
@@ -1918,7 +1918,7 @@ Switchery.prototype.destroy = function() {
 /**
  * Enable disabled switch element.
  *
- * @api public_html
+ * @api public
  */
 
 Switchery.prototype.enable = function() {
@@ -1932,7 +1932,7 @@ Switchery.prototype.enable = function() {
 /**
  * Disable switch element.
  *
- * @api public_html
+ * @api public
  */
 
 Switchery.prototype.disable = function() {

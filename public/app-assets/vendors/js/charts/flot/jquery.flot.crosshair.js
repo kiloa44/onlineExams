@@ -17,7 +17,7 @@ horizontal crosshair and "xy" enables them both. "color" is the color of the
 crosshair (default is "rgba(170, 0, 0, 0.80)"), "lineWidth" is the width of
 the drawn lines (default is 1).
 
-The plugin also adds four public_html methods:
+The plugin also adds four public methods:
 
   - setCrosshair( pos )
 
