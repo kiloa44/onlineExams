@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('SubQuestions/{id}',"SubjectController@GetQuestions")->name('SubQuestions');
+Route::get('GetQuestionsIds/{id}',"ExamController@GetQuestionsIds")->name('GetQuestionsIds');
+Route::get('GetForExam/{id}',"QuestionController@GetForExam")->name('GetForExam');
 
 
 

@@ -32,7 +32,7 @@
                             <form class="form">
                                 <div class="form-actions right">
                                     <button type="button" class="btn btn-warning mr-1" data-toggle="modal"
-                                            data-target="#newStudent">
+                                            data-target="#newQuestion">
                                         <i class="ft-plus"></i>سؤال جديد
                                     </button>
                                 </div>
@@ -87,8 +87,8 @@
             </div>
         </div>
 
-        <!-- Modal newStudent-->
-        <div class="modal fade text-left" id="newStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        <!-- Modal newQuestion-->
+        <div class="modal fade text-left" id="newQuestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
              aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -98,7 +98,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="form-addQuestion" action="#">
+                    <form id="form-addQuestion" class="repeater" action="#">
                         <div class="modal-body">
                             <div class="form-body">
                                 <div class="row">
@@ -112,136 +112,51 @@
                                         <div class="form-group">
                                             <label for="type">نوع السؤال</label>
                                             <input type="text" id="type" class="form-control" placeholder="نوع السؤال" name="type">
-
-{{--                                                <div class="col-md">--}}
-{{--                                                    <select id="projectinput6" name="interested" class="form-control">--}}
-{{--                                                        @foreach($roles as $index => $role)--}}
-{{--                                                        <option value="{{$role->name}}" {{($role->slug=='admin')?'selected=""':''}}>{{$role->description}} </option>--}}
-
-{{--                                                        @endforeach--}}
-{{--                                                    </select>--}}
-{{--                                                </div>--}}
-
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="choices">خيارات السؤال</label>
-                                            <input type="text" id="choices" class="form-control" placeholder="خيارات السؤال" name="choices">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="correct_answer">الجواب الصحيح</label>
                                             <input type="text" id="correct_answer" class="form-control" placeholder="الجواب الصحيح" name="correct_answer">
                                         </div>
                                     </div>
-                                    {{--                                    <div class="col-md-4">--}}
-                                    {{--                                        <div class="form-group">--}}
-                                    {{--                                            <label for="qualification_id">المؤهل العلمي</label>--}}
-                                    {{--                                            <div class="position-relative has-icon-left">--}}
-                                    {{--                                                <select id="qualification_id" class="form-control" name="qualification_id">--}}
-                                    {{--                                                    <option value="null">-- اخنر المؤهل العلمي --</option>--}}
-                                    {{--                                                    @foreach($qualifications as $index => $qualification)--}}
-                                    {{--                                                    <option value="{{ $qualification->id }}">{{ $qualification->name }}</option>--}}
-                                    {{--                                                    @endforeach--}}
-                                    {{--                                                </select>--}}
-                                    {{--                                            </div>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <div class="col-md-4">--}}
-                                    {{--                                        <div class="form-group">--}}
-                                    {{--                                            <label for="qualification_auto_update">تحديث المؤهل آليا</label><br>--}}
-                                    {{--                                            <div class="position-relative has-icon-left icheck_minimal skin">--}}
-                                    {{--                                                <fieldset>--}}
-                                    {{--                                                    <input type="checkbox" id="updated_automatically_qualified" name="updated_automatically_qualified" value="1">--}}
-                                    {{--                                                    <label for="status">فعال </label>--}}
-                                    {{--                                                </fieldset>--}}
-                                    {{--                                            </div>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_name">اسم ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_name" class="form-control" placeholder="اسم ولي الامر" name="guardian_name">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_question_type">رقم هوية ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_question_type" class="form-control" placeholder="رقم هوية ولي الامر" name="guardian_question_type">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                 </div>
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_mobile_number">رقم جوال ولي الامر</label>--}}
-{{--                                            <input type="text" id="guardian_mobile_number" class="form-control" placeholder="رقم جوال ولي الامر" name="guardian_mobile_number">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="subject">المادة</label>
+                                            <div class="position-relative has-icon-left">
+                                                <select id="subject" class="form-control" name="subject_id" onchange="getQuestionsToSubject(this)">
+                                                    <option value="null">-- اختر المادة --</option>
+                                                    @foreach($subjects as $index => $subject)
+                                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
-{{--                                    --}}{{--                                    <div class="col-md-4">--}}
-{{--                                    --}}{{--                                        <div class="form-group">--}}
-{{--                                    --}}{{--                                            <label for="major_area_id">المنطقة الكبرى</label>--}}
-{{--                                    --}}{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                    --}}{{--                                                <select id="major_area_id" class="form-control select2" name="major_area_id" onchange="getAreaByParentID(this)">--}}
-{{--                                    --}}{{--                                                    <option value="null">-- اختر المنطقة الكبرى --</option>--}}
-{{--                                    --}}{{--                                                    @foreach($majorAreas as $index => $majorArea)--}}
-{{--                                    --}}{{--                                                    <option value="{{ $majorArea->id }}">{{ $majorArea->name }}</option>--}}
-{{--                                    --}}{{--                                                    @endforeach--}}
-{{--                                    --}}{{--                                                </select>--}}
-{{--                                    --}}{{--                                            </div>--}}
-{{--                                    --}}{{--                                        </div>--}}
-{{--                                    --}}{{--                                    </div>--}}
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="local_area_id">مكان السكن</label>--}}
-{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                                <select id="local_area_id" class="form-control select2 local_area_id" name="local_area_id" onchange="getMosqueByLocalAreaID(this)">--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    --}}{{--                                    <div class="col-md-4">--}}
-{{--                                    --}}{{--                                        <div class="form-group">--}}
-{{--                                    --}}{{--                                            <label for="mosque_id">المسجد</label>--}}
-{{--                                    --}}{{--                                            <div class="position-relative has-icon-left">--}}
-{{--                                    --}}{{--                                                <select id="mosque_id" class="form-control select2 mosque_id" name="mosque_id">--}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
 
-{{--                                    --}}{{--                                                </select>--}}
-{{--                                    --}}{{--                                            </div>--}}
-{{--                                    --}}{{--                                        </div>--}}
-{{--                                    --}}{{--                                    </div>--}}
-{{--                                </div>--}}
+                                            <form class="">
+                                                <label for="choices">خيارات السؤال</label>
+                                                <div data-repeater-list="choices">
+                                                    <div data-repeater-item>
+                                                        <input type="text" name="text-input" value="A"/>
+                                                        <input data-repeater-delete type="button" value="Delete"/>
+                                                    </div>
+                                                </div>
+                                                <input data-repeater-create type="button" value="Add"/>
+                                            </form>
+
+                                            {{--                                            <input type="text" id="choices" class="form-control" placeholder="خيارات السؤال" name="choices">--}}
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-                            {{--                                <div class="row">--}}
-                            {{--                                    <div class="col-md-4">--}}
-                            {{--                                        <div class="form-group">--}}
-                            {{--                                            <label for="group_id">الحلقة (المحفظ)</label>--}}
-                            {{--                                            <div class="position-relative has-icon-left">--}}
-                            {{--                                                <select id="group_id" class="form-control" name="group_id">--}}
-                            {{--                                                    <option value="null">-- اختر المحفظ --</option>--}}
-                            {{--                                                    @foreach($groups as $index => $group)--}}
-                            {{--                                                    <option value="{{ $group->id }}">{{ $group->teacher->name }}</option>--}}
-                            {{--                                                    @endforeach--}}
-                            {{--                                                </select>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                </div>--}}
-{{--                            <div class="row">--}}
-{{--                                <div class="col-md-12">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label for="notes">ملحوظات</label>--}}
-{{--                                        <textarea id="notes" class="form-control" placeholder="ملحوظات" name="notes" rows="5"></textarea>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="addQuestion()"><i class="fa fa-save"></i> إضافة</button>
@@ -252,7 +167,7 @@
             </div>
         </div>
         </div>
-        <!-- End Modal newStudent-->
+        <!-- End Modal newQuestion-->
         <!-- Modal editQuestion-->
         <div class="modal fade text-left" id="editQuestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
              aria-hidden="true">
@@ -423,7 +338,6 @@
                 </div>
                 </form>
             </div>
-        </div>
         </div>
         <!-- End Modal editQuestion-->
         <!-- Modal viewStudent-->
@@ -636,10 +550,35 @@
     </section>
     <!-- Card sizing section end -->
     <script>
-        function addQuestion() {
+        $(function () {
+            $('.repeater').repeater({
+                initEmpty: true,
+                defaultValues: {
+                    'text-input': 'foo'
+                },
+                show: function () {
+                    $(this).slideDown();
+                },
+                hide: function (deleteElement) {
+                    if(confirm('Are you sure you want to delete this element?')) {
+                        $(this).slideUp(deleteElement);
+                    }
+                },
+                isFirstItemUndeletable: true
+            });
+        });
 
+
+        function addQuestion() {
+            var choices = [];
             var data=getFormData($("#form-addQuestion"));
-            //console.log(data);
+            Object.keys(data).forEach(function (key) {
+                if(key.startsWith('choices')){
+                    choices.push(data[key]);
+                    delete data[key];
+                }
+            });
+            data['choices'] = JSON.stringify(choices);
             axios({
                 method:'post',
                 url:'{{route('questions.store')}}',

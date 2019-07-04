@@ -22,6 +22,7 @@ class IntialValue extends Seeder
         factory(\App\ClassSubject::class,10)->create();
         factory(\App\Exam::class,5)->create();
         factory(\App\Certification::class,5)->create();
+        factory(\App\ExamQuestion::class,25)->create();
 
 
 //        factory(\App\Teacher::class,5)->create();

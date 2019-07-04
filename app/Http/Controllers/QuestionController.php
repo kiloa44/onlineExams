@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionRequest;
+use App\Http\Resources\QuestionResources;
 use App\Question;
+use App\Subject;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use Illuminate\Validation;
@@ -18,7 +20,9 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
+        $subjects= Subject::all();
         return view('questions')
+            ->with(compact('subjects'))
             ->with(compact('questions'));
     }
 
@@ -88,8 +92,18 @@ class QuestionController extends Controller
     {
         try {
 
-            $question = Question::findOrFail($id)->first()->delete();
+            $question = Question::findOrFail($id)->delete();
             return $this->sendResponse($question);
+        }catch( ModelNotFoundException $e) {
+            return $this->sendError('هدا العنصر غير موجود');
+        }
+    }
+
+
+    public function GetForExam($id){
+        try {
+            $question = Question::where('id',$id)->first();
+            return new QuestionResources($question);
         }catch( ModelNotFoundException $e) {
             return $this->sendError('هدا العنصر غير موجود');
         }

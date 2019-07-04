@@ -20,7 +20,7 @@ class QuestionRequest extends BaseRequest
             "correct_answer"=>'required',
             "type"=>'required',
             "choices"=>'required',
-            "class_subject_id"=>'sometimes',
+            "subject_id"=>'required',
 
         ];
     }

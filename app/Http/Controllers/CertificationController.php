@@ -104,7 +104,7 @@ class CertificationController extends Controller
     {
         try {
 
-            $certification= Certification::findOrFail($id)->first()->delete();
+            $certification= Certification::findOrFail($id)->delete();
 
             return $this->sendResponse($certification);
         }catch( ModelNotFoundException $e){

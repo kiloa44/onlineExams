@@ -84,9 +84,14 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
-        //
+        try{
+            $subject = Subject::findOrFail($id)->delete();
+            return $this->sendResponse($subject);
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('this element is not in the database');
+        }
     }
 
     public function GetQuestions($id)

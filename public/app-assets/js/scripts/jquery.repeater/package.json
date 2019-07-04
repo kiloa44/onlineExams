@@ -1,0 +1,92 @@
+{
+  "_args": [
+    [
+      "jquery.repeater",
+      "/var/www/html/onlineExams"
+    ]
+  ],
+  "_from": "jquery.repeater@latest",
+  "_id": "jquery.repeater@1.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/jquery.repeater",
+  "_nodeVersion": "4.2.1",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/jquery.repeater-1.2.1.tgz_1476046188285_0.35815996676683426"
+  },
+  "_npmUser": {
+    "email": "BDeterin@gmail.com",
+    "name": "dubfriend"
+  },
+  "_npmVersion": "2.14.7",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "jquery.repeater",
+    "raw": "jquery.repeater",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery.repeater/-/jquery.repeater-1.2.1.tgz",
+  "_shasum": "ea284a69374bf4478dc2e60af5e705b169cb1514",
+  "_shrinkwrap": null,
+  "_spec": "jquery.repeater",
+  "_where": "/var/www/html/onlineExams",
+  "author": {
+    "email": "BDeterin@gmail.com",
+    "name": "Brian Detering",
+    "url": "http://www.briandetering.net/"
+  },
+  "bugs": {
+    "url": "https://github.com/DubFriend/jquery.repeater/issues"
+  },
+  "dependencies": {},
+  "description": "repeatable form input interface",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-qunit": "^1.2.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-preprocess": "^5.1.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dist": {
+    "shasum": "ea284a69374bf4478dc2e60af5e705b169cb1514",
+    "tarball": "https://registry.npmjs.org/jquery.repeater/-/jquery.repeater-1.2.1.tgz"
+  },
+  "gitHead": "7dc4fea85d986e56753a1638e2b341b0ae5a7a05",
+  "homepage": "https://github.com/DubFriend/jquery.repeater",
+  "keywords": [
+    "form",
+    "input",
+    "multiple",
+    "repeat"
+  ],
+  "license": "MIT",
+  "main": "jquery.repeater.js",
+  "maintainers": [
+    {
+      "name": "dubfriend",
+      "email": "BDeterin@gmail.com"
+    }
+  ],
+  "name": "jquery.repeater",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DubFriend/jquery.repeater.git"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "version": "1.2.1"
+}

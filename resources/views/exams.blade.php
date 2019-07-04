@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <!-- Card sizing section start -->
-    <style>
-        .container1 {width:390px; height: 100px; overflow-y: scroll}
-    </style>
+
     <section id="sizing">
         <div class="row">
             <div class="col-md-12">
@@ -531,8 +529,14 @@
         <!-- End Modal viewStudent-->
 
     </section>
+    <style>
+        .container1 {width:390px; height: 100px; overflow-y: scroll}
+    </style>
     <!-- Card sizing section end -->
     <script>
+
+
+
         function getStuff(list){
             var i =[];
             function recursion(list) {
@@ -570,16 +574,6 @@
             data.questions = questions;
 
 
-
-
-
-
-
-
-
-
-
-
             axios({
                 method:'post',
                 url:'{{route('exams.store')}}',
@@ -591,15 +585,6 @@
                 console.log(error);
             });
         }
-
-
-
-
-
-
-
-
-
 
         //on Track
         function getQuestionsToSubject(select){

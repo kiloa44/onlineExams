@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
 use App\Teacher;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Tests\AcceptHeaderItemTest;
 
 class TeacherController extends Controller
 {
@@ -84,8 +86,13 @@ class TeacherController extends Controller
      * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy($id)
     {
-        //
+        try{
+            $subject = Teacher::findOrFail($id)->delete();
+            return $this->sendResponse($subject);
+        }catch (ModelNotFoundException $e){
+        return $this->sendError('this element is not in the database');
+            }
     }
 }

@@ -22,7 +22,7 @@ class CreateQuestionsTable extends Migration
             $table->boolean('is_correct')->nullable();
             $table->string('correct_answer')->nullable();
             $table->string('type',10);
-            $table->text('choices')->nullable();
+            $table->json('choices')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

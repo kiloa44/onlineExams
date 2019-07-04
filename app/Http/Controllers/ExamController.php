@@ -114,10 +114,35 @@ class ExamController extends Controller
     public function destroy($id)
     {
         try {
-            $exam = Exam::findOrFail($id)->first()->delete();
+            $exam = Exam::findOrFail($id)->delete();
             return $this->sendResponse($exam);
         }catch( ModelNotFoundException $e){
             return $this->sendError(  'هدا العنصر غير موجود');
         }
     }
+
+    public function getExam($id){
+        try{
+            $exam = Exam::where('id',$id)->first();
+            return view('exam')->with(compact('exam'));
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('هذا العنصر غير موجود');
+        }
+    }
+
+    public function GetQuestionsIds($id){
+        try{
+            $exam = Exam::where('id',$id)->first();
+            $questions_ids = [];
+            foreach($exam->exam_question as $exam_question)
+            {
+                array_push($questions_ids,$exam_question->question->id);
+            }
+            return $questions_ids;
+        }catch (ModelNotFoundException $e){
+            return $this->sendError('هذا العنصر غير موجود');
+        }
+    }
+
+
 }

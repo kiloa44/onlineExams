@@ -23,6 +23,8 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('exam/{id}',"ExamController@getExam")->name('exam');
 //Group
 Route::resource('subjects','SubjectController');
 
