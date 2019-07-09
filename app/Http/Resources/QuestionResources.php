@@ -21,7 +21,7 @@ class QuestionResources extends Resource
             'correct_answer'=>$this->correct_answer,
             'type'=>$this->type,
             'choices'=>$this->choices,
-            'exams'=>ExamQuestionResources::collection($this->exam_question)
+            //'exams'=>ExamQuestionResources::collection($this->exam_question)
         ];
     }
 }

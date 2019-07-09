@@ -3,20 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ExamQuestion extends Model
+class ExamQuestion extends Pivot
 {
-    protected $fillable = ['question_id','exam_id',"question_mark"];
-
-
-    public function question()
-    {
-        return $this->belongsTo('App\Question');
-    }
-    public function exam()
-    {
-        return $this->belongsTo('App\Exam');
-    }
 
 
 }

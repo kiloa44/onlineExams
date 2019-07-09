@@ -133,12 +133,14 @@ class ExamController extends Controller
     public function GetQuestionsIds($id){
         try{
             $exam = Exam::where('id',$id)->first();
-            $questions_ids = [];
-            foreach($exam->exam_question as $exam_question)
+            $questions = [];
+            foreach($exam->questions as $question)
             {
-                array_push($questions_ids,$exam_question->question->id);
+                array_push($questions,["id"=>$question->id
+                    ,"text"=>$question->text,
+                    "choices"=>$question->choices]);
             }
-            return $questions_ids;
+            return $questions;
         }catch (ModelNotFoundException $e){
             return $this->sendError('هذا العنصر غير موجود');
         }

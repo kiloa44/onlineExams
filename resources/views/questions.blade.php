@@ -570,15 +570,19 @@
 
 
         function addQuestion() {
-            var choices = [];
+            var choices = {};
+            var index = 0;
             var data=getFormData($("#form-addQuestion"));
+            console.log("keys",Object.keys(data));
             Object.keys(data).forEach(function (key) {
                 if(key.startsWith('choices')){
-                    choices.push(data[key]);
+                    choices[index] = data[key];
+                    index++;
                     delete data[key];
                 }
             });
-            data['choices'] = JSON.stringify(choices);
+            data['choices'] = choices;
+            console.log(data);
             axios({
                 method:'post',
                 url:'{{route('questions.store')}}',

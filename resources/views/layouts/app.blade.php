@@ -105,8 +105,6 @@
                     </li>
                     <li><a class="menu-item" href="{{route("users.index")}}">المستخدمين</a>
                     </li>
-                    <li class="menu-item"><a class="menu-item" href="{{route("minutesofmeeting")}}">محاضر الإجتماعات</a>
-                    </li>
                 </ul>
             </li>
             <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title" data-i18n="">هيكلية المدرسة</span></a>
@@ -140,10 +138,7 @@
                 <ul class="menu-content">
                     <li><a class="menu-item" href="{{route('students.index')}}">طلابي</a>
                     </li>
-                    <li><a class="menu-item" href="{{route('reports')}}">تقارير</a>
-                    </li>
 
-                    </li>
                 </ul>
             </li>
         </ul>

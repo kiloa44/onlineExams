@@ -15,9 +15,10 @@ class Teacher extends Model
     public function classroom(){
         return $this->hasOne('App\Classroom','teacher_id','id');
     }
-    public function teacher_subject()
+    public function subjects()
     {
-        return $this->hasMany('App\TeacherSubject');
+        return $this->belongsToMany('App\Subject','teacher_subjects')
+            ->using('App\TeacherSubject');
     }
 
 

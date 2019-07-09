@@ -106,21 +106,22 @@
                         <input type="hidden" value="{{$exam->id}}" id="exam_id">
                         <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     </div>
-                    <div class="card-content collpase show">
+                    <div class="card-content collpase show" id="card_content">
                         <div class="card-body">
 {{--                            Remember to make it somewhere to use it here--}}
-                            <h2 class="lead">{{$exam->exam_question->keyBy("question_id")->question->text}}</h2>
+                            <h2 class="lead" id="question_text"></h2>
                             <form class="form">
-                                <div class="form-body">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="choice" name="choice">
-                                            <label class="custom-control-label" for="choice"></label>
-                                        </div>
+                                <div class="form-body" id="radioButtons">
                                 </div>
                             </form>
-                            <input type="button" value="GET stuff" onclick="fillQuestion(2)">
+                            <input type="button" value="GET stuff" onclick="nextQuestion()">
                         </div>
                     </div>
+                </div>
+                <div class="col-md-12" id="starting">
+                    <center>
+                        <input type="button" class="btn btn-primary" value="بدأ الامتحان" onclick="StartExam()">
+                    </center>
                 </div>
             </div>
         </div>
@@ -178,40 +179,70 @@
 <!-- END PAGE LEVEL JS-->
 
     <script>
-        var questionIds;
-        var questionNumber;
+        var questions;
+        var i = 0;
+        var chosenQuestions=[];
         var examId = $('#exam_id').val();
+        var card = $('#card_content');
         $(function () {
-            questionIds = getQuestionsIds();
+            console.log('ready man');
+            card.hide();
+            getQuestions();
+            setTimeout(function () {
+                console.log("questions ",questions);
+            },1000);
 
         });
+        function StartExam() {
+            card.show();
+            $('#starting').hide();
+            nextQuestion();
 
-
-        function getQuestionsIds() {
+            console.log(examId);
+        }
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+        function nextQuestion() {
+            var question = questions[i];
+            i++;
+            if (!(question.id in chosenQuestions)) {
+                var Qtext = $('#question_text');
+                var Qchoices = $('#radioButtons');
+                Qtext.empty();
+                Qchoices.empty();
+                Qtext.append(question.text);
+                console.log(question.choices);
+                JSON.parse(question.choices).forEach(function (choice, index) {
+                    Qchoices.append(
+                        '<div class="custom-control custom-radio">\n' +
+                        '<input type="radio" class="custom-control-input" name="answer" value="' + index + '" style="position=static;">\n' +
+                        '<label class="custom-control-label" for="answer">' + choice + '</label>\n' +
+                        '</div>'
+                    );
+                });
+                chosenQuestions.push(question.id);
+                return question.id;
+            } else {
+                return 'Done';
+            }
+        }
+        function getQuestions() {
             axios({
                 method:'get',
                 url:'{{route("GetQuestionsIds",$exam->id)}}',
                 responseType:'json',
             }).then(function (response) {
-                console.log(response.data);
-                return response.data;
+                questions = response.data;
+                shuffle(questions);
+                //console.log(questions);
             }).catch(function (error) {
                 console.log(error);
             });
         }
-
-        function fillQuestion(id) {
-            axios({
-                method:'get',
-                url:'{{url('/')}}'+"/api/GetForExam"+'/'+id,
-                responseType:'json',
-            }).then(function (response) {
-                console.log(response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
+        function getRand(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
         }
-
 
         function getFormData(form){
             var unindexed_array = form.serializeArray();
@@ -221,105 +252,5 @@
             });
             return indexed_array;
         }
-
-        function addNewUser() {
-            var data=getFormData($("#form-addNewUser"));
-            console.log(data);
-            axios({
-                method:'post',
-{{--                url:'{{ route("addUser") }}',--}}
-                responseType:'json',
-                data:data
-            }).then(function (response) {
-                success();
-                //console.log(response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-
-        function editUser(item) {
-            var id=$(item).attr('data-id');
-           // console.log(id);
-            axios({
-                method:'GET',
-{{--                url:'{{ route("showUser") }}'+'/'+id,--}}
-                responseType:'json',
-            }).then(function (response) {
-                console.log(response.data);
-                $("#editUser").modal('show');
-                $("#editUser #form-editUser #name").val(response.data.data.name);
-                $("#editUser #form-editUser #id").val(response.data.data.id);
-                $("#editUser #form-editUser #identity_number").val(response.data.data.identity_number);
-                $("#editUser #form-editUser #email").val(response.data.data.email);
-                $("#editUser #form-editUser #mobile_number").val(response.data.data.mobile_number);
-                $("#editUser #form-editUser #password").val(response.data.data.password);
-                $('#editUser #form-editUser #roleName').val(response.data.data.roles[0].id).trigger('change');
-
-                $("#editUser #form-editUser #major_area_id").find('option').each(function (index, item) {
-                    if(item.value===response.data.data.major_area.id){
-                        item.setAttribute("selected", "selected");
-                    }
-                }).trigger("change");
-
-                $("#editUser #form-editUser #local_area_id").find('option').each(function (index, item) {
-                    if(item.value===response.data.data.local_area.id){
-                        item.setAttribute("selected", "selected");
-                    }
-                }).trigger("change");
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-
-        function saveUser() {
-            var data=getFormData($("#form-editUser"));
-            axios({
-                method:'PUT',
-{{--                url:'{{ route("updateUser") }}'+'/'+data.id,--}}
-                responseType:'json',
-                data:data,
-                //params:{id}
-            }).then(function (response) {
-                success();
-                //console.log(response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
-
-        }
-
-        function deleteUser(item) {
-            var id=$(item).attr('data-id');
-
-            axios({
-                method:'DELETE',
-{{--                url:'{{ route("deleteUser") }}'+'/'+id,--}}
-                responseType:'json',
-            }).then(function (response) {
-                console.log(response.data);
-            }).catch(function (error) {
-                console.log(error);
-            });
-
-        }
-
-        function dateReformatting(date) {
-            if (date == null)
-                return 0;
-            var mydate = date.split(" ");
-            var newDate = mydate.pop();
-            newDate = mydate.pop();
-            return newDate;
-        }
-
-        function GetFormattedDate(date) {
-            var todayTime = new Date(date);
-            var month = todayTime .getMonth() + 1;
-            var day = todayTime .getDate();
-            var year = todayTime .getFullYear();
-            var newDate=month + "/" + day + "/" + year;
-            return newDate;
-        }
-
+        
     </script>

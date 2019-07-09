@@ -9,27 +9,33 @@ class Subject extends Model
 {
     protected $fillable=['name','description'];
 
-   public function exams()
-   {
-       $this->hasMany('App\Exam');
-   }
-    public function class_subject()
+
+    public function classrooms()
     {
-        return $this->hasMany('App\ClassSubject');
+        return $this->belongsToMany('App\Classroom','class_subjects')
+            ->using('App\ClassSubject')
+            ->withPivot("rate");
     }
 
-    public function questions(){
-       return $this->hasMany('App\Question');
-    }
 
-
-    public function teacher_subject()
+    public function teachers()
     {
-        return $this->hasMany('App\TeacherSubject');
+        return $this->belongsToMany('App\Teacher','teacher_subjects')
+            ->using('App\TeacherSubject');
     }
 
-    public function certification_subject(){
-        return $this->hasMany('App\CertificationSubject');
+    public function certifications(){
+        return $this->belongsToMany('App\Certification','certification_subjects')
+            ->using('App\CertificationSubject');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany('App\Question');
+    }
+    public function exams()
+    {
+        $this->hasMany('App\Exam');
     }
 
 

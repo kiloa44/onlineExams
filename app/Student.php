@@ -12,9 +12,9 @@ class Student extends Model
    public function user(){
        return $this->hasOne('App\User','id','user_id');
    }
-   public function class_student()
+   public function classrooms()
    {
-       return $this->hasMany('App\ClassStudent');
+       return $this->belongsToMany('App\Classroom','class_students')->using('App\ClassStudent');
    }
 
    public function guardian(){

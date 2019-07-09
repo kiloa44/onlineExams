@@ -102,8 +102,9 @@ class QuestionController extends Controller
 
     public function GetForExam($id){
         try {
-            $question = Question::where('id',$id)->first();
-            return new QuestionResources($question);
+            $question = Question::findOrFail($id);
+            return ["question_text"=>$question->text,
+                    "question_choices"=>$question->choices];
         }catch( ModelNotFoundException $e) {
             return $this->sendError('هدا العنصر غير موجود');
         }

@@ -16,7 +16,6 @@ class CreateCertificationsTable extends Migration
         Schema::create('certifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_id')->unsigned();
-            //$table->string('student_class');
             $table->longText('notes')->nullable();
             $table->softDeletes();
             $table->timestamps();

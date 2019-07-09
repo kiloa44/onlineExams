@@ -12,13 +12,16 @@ class Exam extends Model
     protected $fillable = ['class_subject_id','teacher_id','name','description','begin_at','end_at','mark'];
 
 
-    public function exam_question()
+    public function questions()
     {
-        return $this->hasMany('App\ExamQuestion');
+        return $this->belongsToMany('App\Question','exam_questions')
+            ->using('App\ExamQuestion');
     }
+
     public function class_subject(){
         return $this->hasOne('App\ClassSubject','id','class_subject_id');
     }
+
     public function teacher(){
         return $this->hasOne('App\Teacher','id','teacher_id');
     }
@@ -35,9 +38,7 @@ class Exam extends Model
     {
         parent::boot();
         static::deleting(function ($exam){
-            $exam->exam_question->map(function ($question){
-                $question->delete();
-            });
+            $exam->questions->detach();
         });
     }
 

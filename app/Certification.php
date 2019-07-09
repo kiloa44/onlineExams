@@ -15,8 +15,9 @@ class Certification extends Model
     }
 
 
-    public function certification_subject(){
-        return $this->hasMany('App\CertificationSubject');
+    public function subjects(){
+        return $this->belongToMany('App\Subject','certification_subjects')
+            ->using('App\CertificationSubject');
     }
 
 
@@ -35,7 +36,7 @@ class Certification extends Model
 
     public function getStudentClassAttribute(){
         $student = Student::where('id',$this->attributes['student_id'])->first();
-        return ($student->class_student->first())?$student->class_student->first()->classroom->name:null;
+        return ($student->classrooms->first())?$student->classrooms->first()->name:null;
     }
 
 

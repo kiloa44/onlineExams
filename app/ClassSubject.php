@@ -3,24 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ClassSubject extends Model
+class ClassSubject extends Pivot
 {
-    protected $fillable = ['subject_id','classroom_id'];
+    protected $table='class_subjects';
 
-    public function subject()
-    {
-        return $this->belongsTo('App\Subject');
+    public function subject(){
+        return $this->hasOne('App\Subject','id','subject_id');
     }
-    public function classroom()
-    {
-        return $this->belongsTo('App\Classroom');
+    public function classroom(){
+        return $this->hasOne('App\Classroom','id','classroom_id');
     }
-    public function questions(){
-        return $this->hasMany('App\Question','class_subject_id','id');
-    }
-    public function exams(){
-        return $this->belongsTo('App\Exam','class_subject_id','id');
-    }
-
 }

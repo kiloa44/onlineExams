@@ -19,9 +19,10 @@ class Question extends Model
         return $this->hasOne('App\Subject');
     }
 
-    public function exam_question()
+    public function exams()
     {
-        return $this->hasMany('App\ExamQuestion');
+        return $this->belongsToMany('App\Question','exam_questions')
+            ->using('App\ExamQuestion');
     }
 
 

@@ -23,6 +23,24 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    $subjects = Subject::all();
+    $students= Student::all();
+    foreach ($subjects as $subject){
+        $subject->classrooms()->attach(Classroom::inRandomOrder()->first()->id);
+    }
+    foreach ($students as $student){
+        $student->classrooms()->attach(Classroom::inRandomOrder()->first()->id);
+    }
+    $exams = Exam::all();
+    foreach ($exams as $exam){
+        $exam->class_subject_id = \App\ClassSubject::inRandomOrder()->first()->id;
+        $exam->save();
+        $exam->questions()->attach(\App\Question::inRandomOrder()->first()->id);
+    }
+//    return view('welcome');
+});
+
 
 Route::get('exam/{id}',"ExamController@getExam")->name('exam');
 //Group
@@ -73,10 +91,6 @@ Route::get('/generalShow',function(){
 })->name('generalShow');
 
 
-//Minutes of meeting
-Route::get('/minutesofmeeting',function(){
-    return view("minutes_meeting");
-})->name('minutesofmeeting');
 
 
 //Mark
@@ -89,24 +103,6 @@ Route::get('/marks',function(){
 Route::get('/reports',function(){
     return view("reports");
 })->name('reports');
-
-
-Route::get('/test',function (){
-
-    return \App\Certification::all()->first()->student_name;
-
-
-
-
-
-
-});
-
-
-
-
-
-
 
 
 
