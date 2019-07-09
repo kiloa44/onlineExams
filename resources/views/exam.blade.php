@@ -216,15 +216,15 @@
                 JSON.parse(question.choices).forEach(function (choice, index) {
                     Qchoices.append(
                         '<div class="custom-control custom-radio">\n' +
-                        '<input type="radio" class="custom-control-input" name="answer" value="' + index + '" style="position=static;">\n' +
-                        '<label class="custom-control-label" for="answer">' + choice + '</label>\n' +
+                        '<input type="radio" class="custom-control-input" id="' + index + '" name="answer" value="' + index + '">\n' +
+                        '<label class="custom-control-label" for="'+index+'">' + choice + '</label>\n' +
                         '</div>'
                     );
                 });
                 chosenQuestions.push(question.id);
                 return question.id;
             } else {
-                return 'Done';
+                return 'end';
             }
         }
         function getQuestions() {
